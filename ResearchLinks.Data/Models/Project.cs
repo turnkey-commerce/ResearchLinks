@@ -22,7 +22,7 @@ namespace ResearchLinks.Data.Models
         public DateTime DateUpdated { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         public User User { get; set; }
 
         public virtual List<ResearchItem> ResearchItems { get; set; }

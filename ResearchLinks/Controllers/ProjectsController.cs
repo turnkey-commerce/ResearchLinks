@@ -17,13 +17,13 @@ namespace ResearchLinks.Controllers
             var projects = new List<Project>();
             using (var db = new ResearchLinksContext())
             {
-                int userId = 1;
-                //Project project = new Project{Name = "Test 2", DateCreated = DateTime.Now, DateUpdated = DateTime.Now, Description = "Test Project", UserId = 1};
+                string userName = "james";
+                //Project project = new Project { Name = "Test", DateCreated = DateTime.Now, DateUpdated = DateTime.Now, Description = "Test Project", UserName = "james" };
                 //db.Projects.Add(project);
                 //db.SaveChanges();
                 db.Configuration.ProxyCreationEnabled = false;
 
-                projects = db.Projects.Where(p => p.UserId == userId).ToList();
+                projects = db.Projects.Where(p => p.UserName == userName).ToList();
             }
             return projects;
         }

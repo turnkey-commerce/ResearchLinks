@@ -4,6 +4,8 @@ namespace ResearchLinks.Data.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using ResearchLinks.Data.Models;
+    using System.Collections.Generic;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ResearchLinks.Data.ResearchLinksContext>
     {
@@ -16,16 +18,13 @@ namespace ResearchLinks.Data.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var roles = new List<Role>{
+                new Role{RoleName = RoleConstants.RoleAdmin},
+            };
+            roles.ForEach(r => context.Roles.AddOrUpdate(r));
+
+            // Create a user.
+            Utility.CreateNewUser(context, "james", "james2013", "info@turnkey-commerce.com", RoleConstants.RoleAdmin, "James", "Culbertson");
         }
     }
 }

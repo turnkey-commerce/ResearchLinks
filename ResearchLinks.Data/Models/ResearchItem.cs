@@ -24,7 +24,7 @@ namespace ResearchLinks.Data.Models
         public int ProjectId { get; set; }
 
         [Required]
-        public int UserId { get; set; }
+        public string UserName { get; set; }
         public User User { get; set; }
 
         public virtual List<Link> Links { get; set; }
