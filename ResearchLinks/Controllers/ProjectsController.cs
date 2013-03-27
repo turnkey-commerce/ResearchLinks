@@ -9,6 +9,7 @@ using ResearchLinks.Data;
 
 namespace ResearchLinks.Controllers
 {
+    [Authorize]
     public class ProjectsController : ApiController
     {
         // GET api/projects
