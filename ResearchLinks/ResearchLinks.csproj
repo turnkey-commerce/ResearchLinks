@@ -127,6 +127,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BasicAuthenticationMessageHandler.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Filters\ValidationFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using ResearchLinks.Data.Models;
 using ResearchLinks.Data;
+using System.Web.Http.ModelBinding;
+using ResearchLinks.Filters;
 
 namespace ResearchLinks.Controllers
 {
@@ -18,10 +20,7 @@ namespace ResearchLinks.Controllers
             var projects = new List<Project>();
             using (var db = new ResearchLinksContext())
             {
-                string userName = "james";
-                //Project project = new Project { Name = "Test", DateCreated = DateTime.Now, DateUpdated = DateTime.Now, Description = "Test Project", UserName = "james" };
-                //db.Projects.Add(project);
-                //db.SaveChanges();
+                string userName = User.Identity.Name;
                 db.Configuration.ProxyCreationEnabled = false;
 
                 projects = db.Projects.Where(p => p.UserName == userName).ToList();
@@ -36,8 +35,32 @@ namespace ResearchLinks.Controllers
         }
 
         // POST api/projects
-        public void Post([FromBody]string value)
+        public HttpResponseMessage Post(Project project)
         {
+            if (ModelState.IsValid)
+            {
+
+                using (var db = new ResearchLinksContext())
+                {
+                    try
+                    {
+                        project.UserName = User.Identity.Name;
+                        project.DateCreated = DateTime.Now;
+                        project.DateUpdated = DateTime.Now;
+                        db.Projects.Add(project);
+                        db.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        return new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                            { Content = new StringContent("Error saving project: " + ex.Message),
+                                ReasonPhrase = "Database Exception"
+                            };
+                    }
+                }
+            }
+            var response = Request.CreateResponse(HttpStatusCode.Created, project);
+            return response;
         }
 
         // PUT api/projects/5
