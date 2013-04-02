@@ -25,7 +25,7 @@ namespace ResearchLinks.Data.Models
         public string UserName { get; set; }
         public User User { get; set; }
 
-        public virtual List<ResearchItem> ResearchItems { get; set; }
+        public virtual ICollection<ResearchItem> ResearchItems { get; set; }
 
     }
 }

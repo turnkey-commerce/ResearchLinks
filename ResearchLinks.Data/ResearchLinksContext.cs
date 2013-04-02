@@ -16,6 +16,7 @@ namespace ResearchLinks.Data
         public DbSet<Note> Notes { get; set; }
         public DbSet<Link> Links { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
