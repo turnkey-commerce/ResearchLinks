@@ -137,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="apiService.js" />
+    <Content Include="app\js\controllers.js" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -200,9 +201,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
-    <Content Include="projectList.html" />
+    <Content Include="app\partials\projectList.html" />
     <Content Include="Scripts\base64.js" />
-    <Content Include="Scripts\projectService.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
     <Content Include="Scripts\angular-bootstrap.js" />
@@ -219,7 +219,7 @@
     <Content Include="Scripts\angular-scenario.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\researchLinks.js" />
+    <Content Include="app\js\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\i18n\angular-locale_am-et.js" />
