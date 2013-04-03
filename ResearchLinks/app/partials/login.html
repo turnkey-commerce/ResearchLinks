@@ -1,0 +1,9 @@
+﻿<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+<form class="form-login" name="loginForm" novalidate ng-submit="login()">
+    <fieldset>
+        <h2>Login</h2>
+        Username: <input type="text" required class="input-block-level" placeholder="Username" ng-model="username" name="username">
+        Password: <input type="password" required class="input-block-level" placeholder="Password" ng-model="password" name="password">
+        <p><button class="btn btn-primary btn-large" ng-disabled="loginForm.$invalid" type="submit">Login</button></p>
+    </fieldset>
+</form>

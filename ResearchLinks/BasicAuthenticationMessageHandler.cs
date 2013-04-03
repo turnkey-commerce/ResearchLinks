@@ -38,6 +38,12 @@ namespace ResearchLinks
             var username = parts[0];
             var password = parts[1];
 
+
+            if (username == "" || password == "")
+            {
+                return base.SendAsync(request, cancellationToken);
+            }
+
             if (!Membership.ValidateUser(username, password))
             {
                 return base.SendAsync(request, cancellationToken);
