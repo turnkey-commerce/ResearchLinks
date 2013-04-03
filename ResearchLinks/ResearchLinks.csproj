@@ -201,6 +201,7 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="projectList.html" />
+    <Content Include="Scripts\base64.js" />
     <Content Include="Scripts\projectService.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.js" />
     <Content Include="Scripts\angular-bootstrap-prettify.min.js" />
