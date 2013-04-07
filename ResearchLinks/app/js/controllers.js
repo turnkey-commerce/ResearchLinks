@@ -1,10 +1,11 @@
-﻿function ListCtrl($scope, $http, $location) {
+﻿function ListCtrl($scope, $http, $location, Projects) {
     $scope.alerts = [];
-    $http({ method: 'GET', url: "/api/projects", headers: { 'Authorization': 'Basic ' + Base64.encode($scope.username + ':' + $scope.password)} }).
-              success(function (data, status) {
+    var result = Projects.projects();
+              result.success(function (data, status) {
                   $scope.projects = data;
-              }).
-              error(function (data, status) {
+              });
+
+              result.error(function (data, status) {
                   if (status == 401){
                       $location.path( "/login" );
                   }
