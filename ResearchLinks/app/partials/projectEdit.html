@@ -1,7 +1,7 @@
 ﻿<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-<form class="form-new-project" method="post" name="newProjectForm" novalidate ng-submit="save()">
+<form class="form-edit-project" method="post" name="editProjectForm" novalidate ng-submit="update()">
     <fieldset>
-        <h2>New Project</h2>
+        <h2>Edit Project</h2>
         Project Name: <input type="text" required class="input-block-level" ng-model="name" name="name">
         Project Description: <input type="text" required class="input-block-level" ng-model="description" name="description">
         <p><button class="btn btn-primary btn-large" ng-disabled="loginForm.$invalid" type="submit">Save</button></p>
