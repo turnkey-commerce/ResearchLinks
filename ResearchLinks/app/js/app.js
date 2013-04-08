@@ -1,8 +1,9 @@
 ﻿var app = angular.module('researchLinks', ['ui.bootstrap']).
     config(function ($routeProvider) {
         $routeProvider.
-            when('/', { controller: ListCtrl, templateUrl: '/app/partials/projectList.html' }).
+            when('/', { controller: ProjectListCtrl, templateUrl: '/app/partials/projectList.html' }).
             when('/login',{ controller: LoginCtrl, templateUrl: '/app/partials/login.html' }).
+            when('/new',{ controller: ProjectNewCtrl, templateUrl: '/app/partials/projectnew.html' }).
             otherwise({ redirectTo: '/' })
     });
 
