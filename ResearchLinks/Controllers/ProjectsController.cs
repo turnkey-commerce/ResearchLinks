@@ -29,11 +29,7 @@ namespace ResearchLinks.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                    {
-                        Content = new StringContent("Error getting projects: " + ex.Message),
-                        ReasonPhrase = "Database Exception"
-                    };
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error getting projects: " + ex.Message);
                 }
             }
             return Request.CreateResponse<List<Project>>(HttpStatusCode.OK, projects);
@@ -52,19 +48,12 @@ namespace ResearchLinks.Controllers
                     project = db.Projects.Where(p => p.ProjectId == id && p.UserName.ToLower() == User.Identity.Name.ToLower()).FirstOrDefault();
                     if (project == null)
                     {
-                        return new HttpResponseMessage(HttpStatusCode.NotFound)
-                        {
-                            Content = new StringContent("Project not found for user " + User.Identity.Name + ".")
-                        };
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Project not found for user " + User.Identity.Name + ".");
                     }
                 }
                 catch (Exception ex)
                 {
-                    return new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                    {
-                        Content = new StringContent("Error getting project: " + ex.Message),
-                        ReasonPhrase = "Database Exception"
-                    };
+                   return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error getting project: " + ex.Message);
                 }
             }
             return Request.CreateResponse<Project>(HttpStatusCode.OK, project);
@@ -87,11 +76,7 @@ namespace ResearchLinks.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                        {
-                            Content = new StringContent("Error inserting project: " + ex.Message),
-                            ReasonPhrase = "Database Exception"
-                        };
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error inserting project: " + ex.Message);
                 }
             }
             var response = Request.CreateResponse(HttpStatusCode.Created, project);
@@ -100,8 +85,8 @@ namespace ResearchLinks.Controllers
             return response;
         }
 
-        // PUT api/projects  (Update)
-        public HttpResponseMessage Put(Project project)
+        // PUT api/projects/5  (Update)
+        public HttpResponseMessage Put(int id, Project project)
         {
             var currentProject = new Project();
             using (var db = new ResearchLinksContext())
@@ -110,13 +95,10 @@ namespace ResearchLinks.Controllers
                 try
                 {
                     // Verify that the user is the owner
-                    currentProject = db.Projects.Where(p => p.ProjectId == project.ProjectId && p.UserName.ToLower() == User.Identity.Name.ToLower()).FirstOrDefault();
+                    currentProject = db.Projects.Where(p => p.ProjectId == id && p.UserName.ToLower() == User.Identity.Name.ToLower()).FirstOrDefault();
                     if (currentProject == null)
                     {
-                        return new HttpResponseMessage(HttpStatusCode.NotFound)
-                        {
-                            Content = new StringContent("Project not found for user " + User.Identity.Name + ".")
-                        };
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Project not found for user " + User.Identity.Name + ".");
                     }
                     currentProject.DateUpdated = DateTime.Now;
                     currentProject.Name = project.Name;
@@ -126,15 +108,11 @@ namespace ResearchLinks.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                    {
-                        Content = new StringContent("Error updating project: " + ex.Message),
-                        ReasonPhrase = "Database Exception"
-                    };
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error updating project: " + ex.Message);
                 }
             }
             var response = Request.CreateResponse(HttpStatusCode.OK, currentProject);
-            string uri = Url.Link("DefaultApi", new { id = project.ProjectId });
+            string uri = Url.Link("DefaultApi", new { id = id });
             response.Headers.Location = new Uri(uri);
             return response;
         }
@@ -151,21 +129,14 @@ namespace ResearchLinks.Controllers
                     var currentProject = db.Projects.Where(p => p.ProjectId == id && p.UserName.ToLower() == User.Identity.Name.ToLower()).FirstOrDefault();
                     if (currentProject == null)
                     {
-                        return new HttpResponseMessage(HttpStatusCode.NotFound)
-                        {
-                            Content = new StringContent("Project not found for user " + User.Identity.Name + ".")
-                        };
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Project not found for user " + User.Identity.Name + ".");
                     }
                     db.Entry(currentProject).State = EntityState.Deleted;
                     db.SaveChanges();
                 }
                 catch (Exception ex)
                 {
-                    return new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                    {
-                        Content = new StringContent("Error deleting project: " + ex.Message),
-                        ReasonPhrase = "Database Exception"
-                    };
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error deleting project: " + ex.Message);
                 }
             }
             return Request.CreateResponse(HttpStatusCode.NoContent);

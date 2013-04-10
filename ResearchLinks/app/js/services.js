@@ -13,7 +13,7 @@ app.factory("Projects", function($rootScope, $http){
 		},
 
 		editProject : function(projectId, $scope) {
-			return $http({ method: 'PUT', url: "/api/projects", data: {projectId: projectId, name: $scope.name, description: $scope.description, userName: $rootScope.username}, headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
+			return $http({ method: 'PUT', url: "/api/projects/" + projectId.toString(), data: { name: $scope.name, description: $scope.description, userName: $rootScope.username}, headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
 		}
 	}
 

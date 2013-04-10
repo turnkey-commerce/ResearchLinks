@@ -92,15 +92,15 @@ function LoginCtrl($scope, $http, $location, Login) {
 };
 
 function HandleError(data, status, $scope, $location) {
-  if (status == 401){
+  if (status == 401 && $location.$$path != "/login"){
       $location.path( "/login" );
   }
-  else if (status !== 200) {
+  else {
     var message;
-    if (data){
-      message = data;
+    if (data.message) {
+        message = data.message;
     } else {
-      message = status;
+        message = status;
     }
     $scope.alerts.push({ type: 'error', msg: "Error: " + message });
   }

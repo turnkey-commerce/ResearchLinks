@@ -6,6 +6,7 @@ using System.Web.Http.Filters;
 using System.Web.Http.Controllers;
 using System.Net.Http;
 using System.Net;
+using System.Text;
 
 namespace ResearchLinks.Filters
 {
@@ -15,7 +16,12 @@ namespace ResearchLinks.Filters
          {
              if (!actionContext.ModelState.IsValid)
              {
-                 actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, actionContext.ModelState);
+                 var errors = new StringBuilder();
+                 foreach (var error in actionContext.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                 {
+                     errors.Append(error.ErrorMessage + " ");
+                 }
+                 actionContext.Response = actionContext.Request.CreateErrorResponse(HttpStatusCode.BadRequest, errors.ToString());
              }
          }
     }
