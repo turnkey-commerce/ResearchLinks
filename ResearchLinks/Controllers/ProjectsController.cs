@@ -29,7 +29,8 @@ namespace ResearchLinks.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error getting projects: " + ex.Message);
+                    var error = new HttpError("Error getting projects: " + ex.Message) { { "Trace", ex.StackTrace } };
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
                 }
             }
             return Request.CreateResponse<List<Project>>(HttpStatusCode.OK, projects);
@@ -53,7 +54,8 @@ namespace ResearchLinks.Controllers
                 }
                 catch (Exception ex)
                 {
-                   return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error getting project: " + ex.Message);
+                    var error = new HttpError("Error getting project: " + ex.Message) { { "Trace", ex.StackTrace } };
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
                 }
             }
             return Request.CreateResponse<Project>(HttpStatusCode.OK, project);
@@ -76,7 +78,8 @@ namespace ResearchLinks.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error inserting project: " + ex.Message);
+                    var error = new HttpError("Error inserting project: " + ex.Message) { { "Trace", ex.StackTrace } };
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
                 }
             }
             var response = Request.CreateResponse(HttpStatusCode.Created, project);
@@ -108,7 +111,8 @@ namespace ResearchLinks.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error updating project: " + ex.Message);
+                    var error = new HttpError("Error updating project: " + ex.Message) {{"Trace", ex.StackTrace}};
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
                 }
             }
             var response = Request.CreateResponse(HttpStatusCode.OK, currentProject);
@@ -136,7 +140,8 @@ namespace ResearchLinks.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error deleting project: " + ex.Message);
+                    var error = new HttpError("Error deleting project: " + ex.Message) { { "Trace", ex.StackTrace } };
+                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
                 }
             }
             return Request.CreateResponse(HttpStatusCode.NoContent);

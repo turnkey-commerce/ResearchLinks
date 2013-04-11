@@ -8,6 +8,8 @@ using System.Threading;
 using System.Text;
 using System.Web.Security;
 using System.Security.Principal;
+using System.Web.Http;
+using System.Net;
 
 namespace ResearchLinks
 {
@@ -44,18 +46,34 @@ namespace ResearchLinks
                 return base.SendAsync(request, cancellationToken);
             }
 
-            if (!Membership.ValidateUser(username, password))
+            try
             {
-                return base.SendAsync(request, cancellationToken);
+                if (!Membership.ValidateUser(username, password))
+                {
+                    return base.SendAsync(request, cancellationToken);
+                }
+            }
+            catch (Exception ex)
+            {
+                var response = request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Task<HttpResponseMessage>.Factory.StartNew(() => response);
             }
 
-            var identity = new GenericIdentity(username, "Basic");
-            string[] roles = Roles.Provider.GetRolesForUser(username);
-            var principal = new GenericPrincipal(identity, roles);
-            Thread.CurrentPrincipal = principal;
-            if (HttpContext.Current != null)
+            try
             {
-                HttpContext.Current.User = principal;
+                var identity = new GenericIdentity(username, "Basic");
+                string[] roles = Roles.Provider.GetRolesForUser(username);
+                var principal = new GenericPrincipal(identity, roles);
+                Thread.CurrentPrincipal = principal;
+                if (HttpContext.Current != null)
+                {
+                    HttpContext.Current.User = principal;
+                }
+            }
+            catch (Exception ex)
+            {
+                var response = request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
+                return Task<HttpResponseMessage>.Factory.StartNew(() => response);
             }
 
             return base.SendAsync(request, cancellationToken);
