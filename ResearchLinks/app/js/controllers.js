@@ -43,7 +43,6 @@ function ProjectEditCtrl($scope, $http, $location, $routeParams, Projects) {
 
     getResult.success(function (getData,status) {
       $scope.name = getData.name;
-      $scope.description = getData.description;
     });
 
     getResult.error(function(data,status){
@@ -68,6 +67,45 @@ function ProjectEditCtrl($scope, $http, $location, $routeParams, Projects) {
     };
 
 };
+
+function ProjectDeleteCtrl($scope, $http, $location, $routeParams, Projects) {
+    $scope.alerts = [];
+
+    var getResult = Projects.getProject($routeParams.projectId);
+
+    getResult.success(function (getData,status) {
+      $scope.name = getData.name;
+      $scope.description = getData.description;
+    });
+
+    getResult.error(function(data,status){
+        HandleError(data, status, $scope, $location);
+    });
+    
+
+    $scope.delete = function () {
+      var result = Projects.deleteProject($routeParams.projectId, $scope);
+
+      result.success(function (data, status) {
+        $location.path( "/" );
+      });
+
+      result.error(function (data, status) {
+          HandleError(data, status, $scope, $location);
+      });
+    };
+
+    $scope.cancel = function () {
+        $location.path( "/" );
+    };
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+
+};
+
+
 
 function LoginCtrl($scope, $http, $location, Login) {
      // This will normally be called in the login controller.

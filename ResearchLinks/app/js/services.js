@@ -14,6 +14,10 @@ app.factory("Projects", function($rootScope, $http){
 
 		editProject : function(projectId, $scope) {
 			return $http({ method: 'PUT', url: "/api/projects/" + projectId.toString(), data: { name: $scope.name, description: $scope.description, userName: $rootScope.username}, headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
+		},
+
+		deleteProject : function(projectId, $scope) {
+			return $http({ method: 'DELETE', url: "/api/projects/" + projectId.toString(), headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
 		}
 	}
 

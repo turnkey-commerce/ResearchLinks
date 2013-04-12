@@ -1,0 +1,9 @@
+﻿<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+<form class="form-edit-project" method="post" name="editProjectForm" novalidate ng-submit="delete()">
+    <fieldset>
+        <h2>Delete Project</h2>
+        <p>Please confirm that you wish to delete the <b>{{name}}</b> project.</p>
+        <p><button class="btn btn-danger" type="submit">Delete</button>
+        <button class="btn" type="submit" ng-click="cancel()">Cancel</button></p>
+    </fieldset>
+</form>
