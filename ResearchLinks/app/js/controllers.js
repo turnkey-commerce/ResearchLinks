@@ -43,6 +43,7 @@ function ProjectEditCtrl($scope, $http, $location, $routeParams, Projects) {
 
     getResult.success(function (getData,status) {
       $scope.name = getData.name;
+      $scope.description = getData.description;
     });
 
     getResult.error(function(data,status){
