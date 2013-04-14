@@ -32,10 +32,13 @@ namespace ResearchLinks.Tests.Mocks
             projectListJohn.Add(projects[2]);
 
             if (throwsDbError) {
-                mockProjectRepository.Setup(m => m.GetByUser(It.IsAny<string>())).Throws(new ApplicationException("Error retrieving projects"));
+                mockProjectRepository.Setup(m => m.GetByUser(It.IsAny<string>())).Throws(new ApplicationException("Database exception!"));
+                mockProjectRepository.Setup(m => m.GetByUser(It.IsAny<int>(), It.IsAny<string>())).Throws(new ApplicationException("Database exception!"));
             } else {
                 mockProjectRepository.Setup(m => m.GetByUser("james")).Returns(projectListJames.AsQueryable());
                 mockProjectRepository.Setup(m => m.GetByUser("john")).Returns(projectListJohn.AsQueryable());
+                mockProjectRepository.Setup(m => m.GetByUser(1,"james")).Returns(projects[0]);
+                mockProjectRepository.Setup(m => m.GetByUser(1, "john")).Returns((Project)null);
             }
 
             return mockProjectRepository;
