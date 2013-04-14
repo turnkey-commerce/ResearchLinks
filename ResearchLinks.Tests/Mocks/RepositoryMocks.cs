@@ -8,6 +8,7 @@ using Moq;
 
 namespace ResearchLinks.Tests.Mocks
 {
+    public enum ReturnType { Exception, Normal};
     public class RepositoryMocks
     {
         private List<Project> projects = new List<Project>();
@@ -20,7 +21,7 @@ namespace ResearchLinks.Tests.Mocks
         
         }
 
-        public Mock<IProjectRepository> GetProjectsRepository(bool throwsDbError)
+        public Mock<IProjectRepository> GetProjectsRepository(ReturnType returnType)
         {
             var mockProjectRepository = new Mock<IProjectRepository>();
 
@@ -31,14 +32,20 @@ namespace ResearchLinks.Tests.Mocks
             var projectListJohn = new List<Project>();
             projectListJohn.Add(projects[2]);
 
-            if (throwsDbError) {
+            if (returnType == ReturnType.Exception) {
                 mockProjectRepository.Setup(m => m.GetByUser(It.IsAny<string>())).Throws(new ApplicationException("Database exception!"));
                 mockProjectRepository.Setup(m => m.GetByUser(It.IsAny<int>(), It.IsAny<string>())).Throws(new ApplicationException("Database exception!"));
+                mockProjectRepository.Setup(m => m.Insert(It.IsAny<Project>())).Throws(new ApplicationException("Database exception!"));
+                mockProjectRepository.Setup(m => m.Delete(It.IsAny<Project>())).Throws(new ApplicationException("Database exception!"));
+                mockProjectRepository.Setup(m => m.Commit()).Throws(new ApplicationException("Database exception!"));
             } else {
                 mockProjectRepository.Setup(m => m.GetByUser("james")).Returns(projectListJames.AsQueryable());
                 mockProjectRepository.Setup(m => m.GetByUser("john")).Returns(projectListJohn.AsQueryable());
                 mockProjectRepository.Setup(m => m.GetByUser(1,"james")).Returns(projects[0]);
                 mockProjectRepository.Setup(m => m.GetByUser(1, "john")).Returns((Project)null);
+                mockProjectRepository.Setup(m => m.Delete(It.IsAny<Project>()));
+                mockProjectRepository.Setup(m => m.Insert(It.IsAny<Project>()));
+                mockProjectRepository.Setup(m => m.Commit());
             }
 
             return mockProjectRepository;
