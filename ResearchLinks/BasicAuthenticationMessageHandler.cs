@@ -10,13 +10,28 @@ using System.Web.Security;
 using System.Security.Principal;
 using System.Web.Http;
 using System.Net;
+using ResearchLinks.Services;
+using Ninject;
 
 namespace ResearchLinks
 {
     public class BasicAuthenticationMessageHandler : DelegatingHandler
     {
+        public IMembershipService MembershipService { get; set; }
+        public IRoleService RoleService { get; set; }
+
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            // DI for Membership/Role provider.
+            if (MembershipService == null) 
+            {
+                MembershipService = (IMembershipService)request.GetDependencyScope().GetService(typeof(IMembershipService));
+            }
+            if (RoleService == null) 
+            {
+                RoleService = (IRoleService)request.GetDependencyScope().GetService(typeof(IRoleService));
+            }
+            
             if (request.Headers.Authorization == null)
             {
                 return base.SendAsync(request, cancellationToken);
@@ -48,7 +63,7 @@ namespace ResearchLinks
 
             try
             {
-                if (!Membership.ValidateUser(username, password))
+                if (!MembershipService.ValidateUser(username, password))
                 {
                     return base.SendAsync(request, cancellationToken);
                 }
@@ -62,7 +77,7 @@ namespace ResearchLinks
             try
             {
                 var identity = new GenericIdentity(username, "Basic");
-                string[] roles = Roles.Provider.GetRolesForUser(username);
+                string[] roles = RoleService.GetRolesForUser(username);
                 var principal = new GenericPrincipal(identity, roles);
                 Thread.CurrentPrincipal = principal;
                 if (HttpContext.Current != null)

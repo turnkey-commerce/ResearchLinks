@@ -155,7 +155,7 @@ namespace ResearchLinks.Tests.Controllers
 
             //Assert
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode, "Expecting a Created Status Code");
-            Assert.AreEqual("http://localhost/api/products/1", response.Headers.Location.ToString());
+            Assert.AreEqual("http://localhost/api/projects/1", response.Headers.Location.ToString());
         }
 
         [Test]
@@ -190,7 +190,7 @@ namespace ResearchLinks.Tests.Controllers
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Expecting an OK Status Code");
-            Assert.AreEqual("http://localhost/api/products/1", response.Headers.Location.ToString());
+            Assert.AreEqual("http://localhost/api/projects/1", response.Headers.Location.ToString());
         }
 
         [Test]
@@ -288,7 +288,7 @@ namespace ResearchLinks.Tests.Controllers
             var config = new HttpConfiguration();
             var request = new HttpRequestMessage(method, "http://localhost/api/projects");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
-            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "products" } });
+            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "projects" } });
 
             projectsController.ControllerContext = new HttpControllerContext(config, routeData, request);
             projectsController.Request = request;

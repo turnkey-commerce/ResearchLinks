@@ -13,6 +13,7 @@ namespace ResearchLinks.App_Start
 
     using ResearchLinks.Data.Repository;
     using System.Web.Http;
+    using ResearchLinks.Services;
 
     public static class NinjectWebCommon
     {
@@ -59,7 +60,9 @@ namespace ResearchLinks.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IProjectRepository>().To<ProjectRepository>();
+            kernel.Bind<IProjectRepository>().To<ProjectRepository>().InRequestScope();
+            kernel.Bind<IMembershipService>().To<AccountMembershipService>().InRequestScope();
+            kernel.Bind<IRoleService>().To<AccountRoleService>().InRequestScope();
         }
 
     }
