@@ -151,7 +151,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountRoleService.cs" />
     <Compile Include="Services\MembershipService.cs" />
-    <Compile Include="Services\NinjectHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="apiService.js" />

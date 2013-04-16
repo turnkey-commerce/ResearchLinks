@@ -51,5 +51,27 @@ namespace ResearchLinks.Tests.MessageHandlers
             Assert.AreEqual(HttpStatusCode.OK, message.StatusCode);
             Assert.AreEqual("james", Thread.CurrentPrincipal.Identity.Name);
         }
+
+        [Test]
+        public void MessageHandler_Should_Not_Add_Principal_If_Wrong_Password()
+        {
+            //Setup
+            MockInnerHandler innerhandler = new MockInnerHandler();
+            innerhandler.Message = new HttpResponseMessage(HttpStatusCode.OK);
+
+            HttpMessageInvoker client = new HttpMessageInvoker(new BasicAuthenticationMessageHandler { InnerHandler = innerhandler, MembershipService = new MockMembershipService(), RoleService = new MockRoleService() });
+            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, "http://localhost/api/projects");
+
+            var usernamepwd = Convert.ToBase64String(Encoding.UTF8.GetBytes("james:wrongPassword"));
+            var authorization = new AuthenticationHeaderValue("Basic", usernamepwd);
+            requestMessage.Headers.Authorization = authorization;
+
+            //Action
+            HttpResponseMessage message = client.SendAsync(requestMessage, new CancellationToken(false)).Result;
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.OK, message.StatusCode);
+            Assert.AreEqual(String.Empty, Thread.CurrentPrincipal.Identity.Name);
+        }
     }
 }
