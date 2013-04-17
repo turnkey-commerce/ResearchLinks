@@ -6,6 +6,7 @@
             when('/new',{ controller: ProjectNewCtrl, templateUrl: '/app/partials/projectnew.html' }).
             when('/edit/:projectId',{ controller: ProjectEditCtrl, templateUrl: '/app/partials/projectEdit.html' }).
             when('/delete/:projectId',{ controller: ProjectDeleteCtrl, templateUrl: '/app/partials/projectDelete.html' }).
+            when('/:projectId/items',{ controller: ItemListCtrl, templateUrl: '/app/partials/ItemList.html' }).
             otherwise({ redirectTo: '/' })
     });
 

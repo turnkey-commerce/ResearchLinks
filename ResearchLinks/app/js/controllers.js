@@ -106,6 +106,22 @@ function ProjectDeleteCtrl($scope, $http, $location, $routeParams, Projects) {
 
 };
 
+function ItemListCtrl($scope, $http, $location, $routeParams, Items) {
+    $scope.alerts = [];
+    var result = Items.items($routeParams.projectId);
+
+    result.success(function (data, status) {
+        $scope.items = data;
+    });
+
+    result.error(function (data, status) {
+        HandleError(data, status, $scope, $location)
+    });
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+};
 
 
 function LoginCtrl($scope, $http, $location, Login) {

@@ -1,20 +1,20 @@
 ﻿<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-<h2>Projects</h2>
+<h2>Research Items in {{project.projectName}} Project</h2>
 <p><input type="text" ng-model="search" class="search-query" placeholder="Search"></p>
 <table class="table table-striped table-bordered table-condensed">
   <thead>
   <tr>
-    <th>Project</th>
+    <th>Research Item</th>
     <th>Description</th>
     <th><a href="#/new"><i class="icon-plus-sign"></i></a></th>
   </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="project in projects | filter:search | orderBy:'name'">
-    <td><a href="#/{{project.projectId}}/items">{{project.name}}</a></td>
-    <td>{{project.description}}</td>
+  <tr ng-repeat="item in items | filter:search | orderBy:'name'">
+    <td><a href="#/{{project.projectId}}/items/{{item.itemId}}">{{item.name}}</a></td>
+    <td>{{item.description}}</td>
     <td>
-      <a href="#/edit/{{project.projectId}}"><i class="icon-pencil"></i></a>&nbsp; <a href="#/delete/{{project.projectId}}"><i class="icon-remove"></i>
+      <a href="#/edit/{{item.itemId}}"><i class="icon-pencil"></i></a>&nbsp; <a href="#/delete/{{item.itemId}}"><i class="icon-remove"></i>
     </td>
   </tr>
   </tbody>

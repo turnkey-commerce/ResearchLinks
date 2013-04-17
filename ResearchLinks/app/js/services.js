@@ -23,12 +23,20 @@ app.factory("Projects", function($rootScope, $http){
 
 });
 
+app.factory("Items", function($rootScope, $http){
+	return {
+		items : function(projectId) {
+		    return $http({ method: 'GET', url: "/api/projects/" + projectId + "/items", headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
+		}
+	}
+
+});
+
 app.factory("Login", function($rootScope, $http){
 	return {
 		login : function() {
 		     return $http({ method: 'POST', url: "/api/login", headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
 		}
 	}
-
 });
 
