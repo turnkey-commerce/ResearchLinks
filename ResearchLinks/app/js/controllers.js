@@ -106,9 +106,9 @@ function ProjectDeleteCtrl($scope, $http, $location, $routeParams, Projects) {
 
 };
 
-function ItemListCtrl($scope, $http, $location, $routeParams, Items) {
+function ItemListCtrl($scope, $http, $location, $routeParams, ResearchItems) {
     $scope.alerts = [];
-    var result = Items.items($routeParams.projectId);
+    var result = ResearchItems.items($routeParams.projectId);
 
     result.success(function (data, status) {
         $scope.items = data;

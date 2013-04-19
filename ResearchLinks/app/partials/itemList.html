@@ -11,10 +11,10 @@
   </thead>
   <tbody>
   <tr ng-repeat="item in items | filter:search | orderBy:'name'">
-    <td><a href="#/{{project.projectId}}/items/{{item.itemId}}">{{item.name}}</a></td>
+    <td><a href="#/{{project.projectId}}/items/{{item.researchItemId}}">{{item.subject}}</a></td>
     <td>{{item.description}}</td>
     <td>
-      <a href="#/edit/{{item.itemId}}"><i class="icon-pencil"></i></a>&nbsp; <a href="#/delete/{{item.itemId}}"><i class="icon-remove"></i>
+      <a href="#/edit/{{item.researchItemId}}"><i class="icon-pencil"></i></a>&nbsp; <a href="#/delete/{{item.researchItemId}}"><i class="icon-remove"></i>
     </td>
   </tr>
   </tbody>

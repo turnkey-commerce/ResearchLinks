@@ -11,6 +11,12 @@ namespace ResearchLinks
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
+                name: "ProjectResearchItemsApi",
+                routeTemplate: "api/projects/{projectId}/researchItems/{researchItemId}",
+                defaults: new { Controller = "ProjectResearchItems", researchItemId = RouteParameter.Optional }
+            );
+            
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }

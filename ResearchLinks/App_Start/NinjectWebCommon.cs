@@ -61,6 +61,7 @@ namespace ResearchLinks.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IProjectRepository>().To<ProjectRepository>().InRequestScope();
+            kernel.Bind<IResearchItemRepository>().To<ResearchItemRepository>().InRequestScope();
             kernel.Bind<IMembershipService>().To<AccountMembershipService>().InRequestScope();
             kernel.Bind<IRoleService>().To<AccountRoleService>().InRequestScope();
         }

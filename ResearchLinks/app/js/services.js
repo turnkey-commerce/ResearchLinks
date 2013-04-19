@@ -23,10 +23,10 @@ app.factory("Projects", function($rootScope, $http){
 
 });
 
-app.factory("Items", function($rootScope, $http){
+app.factory("ResearchItems", function($rootScope, $http){
 	return {
 		items : function(projectId) {
-		    return $http({ method: 'GET', url: "/api/projects/" + projectId + "/items", headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
+		    return $http({ method: 'GET', url: "/api/projects/" + projectId + "/researchItems", headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
 		}
 	}
 
