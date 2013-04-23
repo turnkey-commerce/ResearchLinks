@@ -114,6 +114,8 @@ function ItemListCtrl($scope, $http, $location, $routeParams, ResearchItems) {
         $scope.items = data;
     });
 
+    $scope.projectId = $routeParams.projectId;
+
     result.error(function (data, status) {
         HandleError(data, status, $scope, $location)
     });
@@ -121,6 +123,27 @@ function ItemListCtrl($scope, $http, $location, $routeParams, ResearchItems) {
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
     };
+};
+
+function ItemNewCtrl($scope, $http, $location, ResearchItems) {
+    $scope.alerts = [];
+
+    $scope.save = function () {
+      var result = ResearchItems.addResearchItem($scope);
+
+      result.success(function (data, status) {
+        $location.path( "/" + $scope.projectId + "/items/" + $scope.researchItemId );
+      });
+
+      result.error(function (data, status) {
+          HandleError(data, status, $scope, $location);
+      });
+    };
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+
 };
 
 

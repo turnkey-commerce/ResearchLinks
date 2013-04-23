@@ -135,6 +135,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="app\DTO\ResearchItemDto.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Controllers\ProjectResearchItemsController.cs" />
@@ -421,7 +422,9 @@
     <Content Include="Scripts\ui-bootstrap-0.2.0.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.2.0.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -450,7 +453,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
