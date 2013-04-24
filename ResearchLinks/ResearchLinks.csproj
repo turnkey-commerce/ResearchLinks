@@ -160,6 +160,7 @@
     <Content Include="app\js\controllers.js" />
     <Content Include="app\js\services.js" />
     <Content Include="app\partials\itemList.html" />
+    <Content Include="app\partials\itemNew.html" />
     <Content Include="app\partials\login.html" />
     <Content Include="app\partials\projectDelete.html" />
     <Content Include="app\partials\projectEdit.html" />

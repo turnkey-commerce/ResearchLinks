@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
+using ResearchLinks.DTO;
 
 namespace ResearchLinks.Tests.Controllers
 {
@@ -45,13 +46,14 @@ namespace ResearchLinks.Tests.Controllers
 
             //Act
             var response = projectsController.Get();
-            var projects = JsonConvert.DeserializeObject<List<Project>>(response.Content.ReadAsStringAsync().Result);
+            var responseContent = JsonConvert.DeserializeObject<ProjectDto>(response.Content.ReadAsStringAsync().Result);
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Expecting an OK Status Code");
-            Assert.AreEqual(2, projects.Count);
-            Assert.AreEqual("james", projects[0].UserName);
-            Assert.AreEqual("Test Project 1", projects[0].Name);
+            Assert.AreEqual(2, responseContent.Projects.Count);
+            Assert.AreEqual(2, responseContent.Meta.NumberProjects);
+            Assert.AreEqual("james", responseContent.Projects[0].UserName);
+            Assert.AreEqual("Test Project 1", responseContent.Projects[0].Name);
         }
 
         [Test]
@@ -63,13 +65,14 @@ namespace ResearchLinks.Tests.Controllers
 
             //Act
             var response = projectsController.Get();
-            var projects = JsonConvert.DeserializeObject<List<Project>>(response.Content.ReadAsStringAsync().Result);
+            var responseContent = JsonConvert.DeserializeObject<ProjectDto>(response.Content.ReadAsStringAsync().Result);
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Expecting an OK Status Code");
-            Assert.AreEqual(1, projects.Count);
-            Assert.AreEqual("john", projects[0].UserName);
-            Assert.AreEqual("Test Project 3", projects[0].Name);
+            Assert.AreEqual(1, responseContent.Projects.Count);
+            Assert.AreEqual(1, responseContent.Meta.NumberProjects);
+            Assert.AreEqual("john", responseContent.Projects[0].UserName);
+            Assert.AreEqual("Test Project 3", responseContent.Projects[0].Name);
         }
 
         [Test]

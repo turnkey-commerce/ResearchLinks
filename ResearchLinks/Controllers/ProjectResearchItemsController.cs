@@ -22,7 +22,7 @@ namespace ResearchLinks.Controllers
             _projectRepository = projectRepository;
         }
 
-        // GET api/projects/4/researchItems
+        // GET /api/projects/4/researchItems
         public HttpResponseMessage Get(int projectId)
         {
             var researchItems = new List<ResearchItem>();
@@ -45,10 +45,38 @@ namespace ResearchLinks.Controllers
             return Request.CreateResponse<ResearchItemDto>(HttpStatusCode.OK, researchItemDto);
         }
 
-        // GET api/researchitems/5
-        public string Get(int projectId, int researchItemId)
+        // GET /api/projects/4/researchitems/5
+        public HttpResponseMessage Get(int projectId, int researchItemId)
         {
-            return "value";
+            var researchItems = new List<ResearchItem>();
+            var project = new Project();
+            try
+            {
+                project = _projectRepository.GetByUser(projectId, User.Identity.Name);
+                if (project == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Project not found for user " + User.Identity.Name + ".");
+                }
+                var researchItem = _researchItemRepository.GetByUser(researchItemId, User.Identity.Name);
+                if (researchItem == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Research item not found for user " + User.Identity.Name + ".");
+                }
+                researchItems.Add(researchItem);
+            }
+            catch (Exception ex)
+            {
+                var error = new HttpError("Error getting research item: " + ex.Message) { { "Trace", ex.StackTrace } };
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
+            }
+
+            var researchItemDto = new ResearchItemDto()
+            {
+                Meta = new ResearchItemMeta() { NumberResearchItems = researchItems.Count(), ProjectName = project.Name },
+                ResearchItems = researchItems
+            };
+
+            return Request.CreateResponse<ResearchItemDto>(HttpStatusCode.OK, researchItemDto);
         }
 
         // POST /api/projects/4/researchItems
@@ -71,7 +99,7 @@ namespace ResearchLinks.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
             }
             var response = Request.CreateResponse(HttpStatusCode.Created, researchItem);
-            string uri = Url.Link("ProjectResearchItemsApi", new { projectId = projectId , researchItemId = researchItem.ResearchItemId,  });
+            string uri = Url.Link("ProjectResearchItemsApi", new { projectId = projectId, researchItemId = researchItem.ResearchItemId });
             response.Headers.Location = new Uri(uri);
             return response;
 

@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ProjectResearchItemsControllerTests.cs" />
     <Compile Include="Controllers\ProjectsControllerTests.cs" />
     <Compile Include="MessageHandlers\BasicAuthenticationMessageHandlerTests.cs" />
     <Compile Include="Mocks\MockInnerHandler.cs" />
