@@ -125,11 +125,11 @@ function ItemListCtrl($scope, $http, $location, $routeParams, ResearchItems) {
     };
 };
 
-function ItemNewCtrl($scope, $http, $location, ResearchItems) {
+function ItemNewCtrl($scope, $http, $location, $routeParams, ResearchItems) {
     $scope.alerts = [];
 
     $scope.save = function () {
-      var result = ResearchItems.addResearchItem($scope);
+      var result = ResearchItems.addResearchItem($routeParams.projectId, $scope);
 
       result.success(function (data, status) {
         $location.path( "/" + $scope.projectId + "/items/" + $scope.researchItemId );

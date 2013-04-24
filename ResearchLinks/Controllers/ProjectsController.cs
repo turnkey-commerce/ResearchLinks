@@ -10,6 +10,7 @@ using System.Web.Http.ModelBinding;
 using ResearchLinks.Filters;
 using System.Data;
 using ResearchLinks.Data.Repository;
+using ResearchLinks.app.DTO;
 
 namespace ResearchLinks.Controllers
 {
@@ -36,7 +37,14 @@ namespace ResearchLinks.Controllers
                 var error = new HttpError("Error getting projects: " + ex.Message) { { "Trace", ex.StackTrace } };
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
             }
-            return Request.CreateResponse<List<Project>>(HttpStatusCode.OK, projects);
+
+            var projectDto = new ProjectDto()
+            {
+                Meta = new ProjectMeta() { NumberProjects = projects.Count() },
+                Projects = projects
+            };
+
+            return Request.CreateResponse<ProjectDto>(HttpStatusCode.OK, projectDto);
         }
 
         // GET api/projects/5 (Detail)

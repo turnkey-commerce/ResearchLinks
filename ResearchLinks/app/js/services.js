@@ -30,7 +30,7 @@ app.factory("ResearchItems", function($rootScope, $http){
 		},
 
 		addResearchItem : function(projectId, $scope) {
-			return $http({ method: 'POST', url: "/api/projects/" + projectId + "/researchItems", data: {name: $scope.name, description: $scope.description, userName: $rootScope.username}, headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
+			return $http({ method: 'POST', url: "/api/projects/" + projectId + "/researchItems", data: {subject: $scope.subject, description: $scope.description, userName: $rootScope.username}, headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
 		}
 	}
 

@@ -135,6 +135,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="app\DTO\ProjectDto.cs" />
     <Compile Include="app\DTO\ResearchItemDto.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -158,6 +159,7 @@
     <Content Include="apiService.js" />
     <Content Include="app\js\controllers.js" />
     <Content Include="app\js\services.js" />
+    <Content Include="app\partials\itemList.html" />
     <Content Include="app\partials\login.html" />
     <Content Include="app\partials\projectDelete.html" />
     <Content Include="app\partials\projectEdit.html" />
