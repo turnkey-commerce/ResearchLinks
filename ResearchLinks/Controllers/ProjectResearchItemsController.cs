@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using ResearchLinks.Data.Models;
 using ResearchLinks.Data.Repository;
-using ResearchLinks.app.DTO;
+using ResearchLinks.DTO;
 
 namespace ResearchLinks.Controllers
 {
@@ -51,9 +51,30 @@ namespace ResearchLinks.Controllers
             return "value";
         }
 
-        // POST api/researchitems
-        public void Post([FromBody]string value)
+        // POST /api/projects/4/researchItems
+        public HttpResponseMessage Post(int projectId, ResearchItem researchItem)
         {
+            try {
+                // Make sure it is being inserted to a project owned by the user.
+                var project = _projectRepository.GetByUser(projectId, User.Identity.Name);
+                if (project == null) {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Project not found for user " + User.Identity.Name + ".");
+                }
+                researchItem.ProjectId = projectId;
+                researchItem.UserName = User.Identity.Name;
+                researchItem.DateCreated = DateTime.Now;
+                researchItem.DateUpdated = DateTime.Now;
+                _researchItemRepository.Insert(researchItem);
+                _researchItemRepository.Commit();
+            } catch (Exception ex) {
+                var error = new HttpError("Error inserting research item: " + ex.Message) { { "Trace", ex.StackTrace } };
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
+            }
+            var response = Request.CreateResponse(HttpStatusCode.Created, researchItem);
+            string uri = Url.Link("ProjectResearchItemsApi", new { projectId = projectId , researchItemId = researchItem.ResearchItemId,  });
+            response.Headers.Location = new Uri(uri);
+            return response;
+
         }
 
         // PUT api/researchitems/5

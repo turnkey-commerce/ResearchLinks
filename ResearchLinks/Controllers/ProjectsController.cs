@@ -10,7 +10,7 @@ using System.Web.Http.ModelBinding;
 using ResearchLinks.Filters;
 using System.Data;
 using ResearchLinks.Data.Repository;
-using ResearchLinks.app.DTO;
+using ResearchLinks.DTO;
 
 namespace ResearchLinks.Controllers
 {

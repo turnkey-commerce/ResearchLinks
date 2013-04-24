@@ -135,8 +135,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="app\DTO\ProjectDto.cs" />
-    <Compile Include="app\DTO\ResearchItemDto.cs" />
+    <Compile Include="DTO\ProjectDto.cs" />
+    <Compile Include="DTO\ResearchItemDto.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="Controllers\ProjectResearchItemsController.cs" />

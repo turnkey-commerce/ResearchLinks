@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using ResearchLinks.Data.Models;
 
-namespace ResearchLinks.app.DTO
+namespace ResearchLinks.DTO
 {
     public class ProjectDto
     {

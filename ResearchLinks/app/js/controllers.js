@@ -132,7 +132,7 @@ function ItemNewCtrl($scope, $http, $location, $routeParams, ResearchItems) {
       var result = ResearchItems.addResearchItem($routeParams.projectId, $scope);
 
       result.success(function (data, status) {
-        $location.path( "/" + $scope.projectId + "/items/" + $scope.researchItemId );
+        $location.path( "/" + data.projectId + "/items");
       });
 
       result.error(function (data, status) {
