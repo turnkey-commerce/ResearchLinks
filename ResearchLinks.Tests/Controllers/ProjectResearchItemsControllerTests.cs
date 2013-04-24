@@ -245,6 +245,112 @@ namespace ResearchLinks.Tests.Controllers
         }
         #endregion
 
+        #region Put ResearchItem Tests
+        [Test]
+        public void Put_ResearchItem_Returns_Expected_Header_For_James()
+        {
+            //Setup
+            _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
+            _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Put);
+            var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 1, Subject = "Update Test 1", UserName = "james", Description = "Insert Test Description" };
+
+            //Act
+            var response = researchItemsController.Put(1, inputResearchItem);
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Expecting an OK Status Code");
+            Assert.AreEqual("http://localhost/api/projects/1/researchItems/1", response.Headers.Location.ToString());
+        }
+
+        [Test]
+        public void Put_James_ResearchItem_Returns_Null_ResearchItem_For_John()
+        {
+            //Setup
+            _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
+            _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Put);
+            var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 3, Subject = "Update Test 1", UserName = "john", Description = "Insert Test Description" };
+
+            //Act
+            var response = researchItemsController.Put(3, inputResearchItem);
+            dynamic errorMessage = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode, "Expecting a Not Found Status Code");
+            Assert.AreEqual("Research item not found for user john.", (string)errorMessage.Message);
+        }
+
+        [Test]
+        public void Put_ResearchItem_Database_Exception_Returns_Error()
+        {
+            //Setup
+            _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
+            _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Exception);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Put);
+            var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 1, Subject = "Update Test 1", UserName = "james", Description = "Insert Test Description" };
+
+            //Act
+            var response = researchItemsController.Put(1, inputResearchItem);
+            dynamic errorMessage = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode, "Expecting an Internal Server Error Status Code");
+            Assert.AreEqual("Error updating research item: Database exception!", (string)errorMessage.Message);
+        }
+        #endregion
+
+        #region Delete ResearchItem Tests
+        [Test]
+        public void Delete_ResearchItem_Returns_Expected_Header_For_James()
+        {
+            //Setup
+            _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
+            _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Delete);
+
+            //Act
+            var response = researchItemsController.Delete(1,1);
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode, "Expecting No Content Status Code");
+        }
+
+        [Test]
+        public void Delete_James_ResearchItem_Returns_Null_ResearchItem_For_John()
+        {
+            //Setup
+            _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
+            _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Delete);
+
+            //Act
+            var response = researchItemsController.Delete(3, 1);
+            dynamic errorMessage = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode, "Expecting a Not Found Status Code");
+            Assert.AreEqual("Research item not found for user john.", (string)errorMessage.Message);
+        }
+
+        [Test]
+        public void Delete_Project_Database_Exception_Returns_Error()
+        {
+            //Setup
+            _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
+            _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Exception);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Delete);
+
+            //Act
+            var response = researchItemsController.Delete(1,1);
+            dynamic errorMessage = JObject.Parse(response.Content.ReadAsStringAsync().Result);
+
+            //Assert
+            Assert.AreEqual(HttpStatusCode.InternalServerError, response.StatusCode, "Expecting an Internal Server Error Status Code");
+            Assert.AreEqual("Error deleting research item: Database exception!", (string)errorMessage.Message);
+        }
+        #endregion
+
         private ProjectResearchItemsController SetupController(IResearchItemRepository mockResearchItemRepository, IProjectRepository mockProjectRepository, string userName, HttpMethod method)
         {
             var projectResearchItemsController = new ProjectResearchItemsController(mockResearchItemRepository, mockProjectRepository);

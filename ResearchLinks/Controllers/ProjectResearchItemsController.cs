@@ -52,6 +52,7 @@ namespace ResearchLinks.Controllers
             var project = new Project();
             try
             {
+                // Verify that the user is the owner of project and research item.
                 project = _projectRepository.GetByUser(projectId, User.Identity.Name);
                 if (project == null)
                 {
@@ -105,14 +106,66 @@ namespace ResearchLinks.Controllers
 
         }
 
-        // PUT api/researchitems/5
-        public void Put(int id, [FromBody]string value)
+        // PUT /api/projects/4/researchitems/5
+        public HttpResponseMessage Put(int projectId, ResearchItem researchItem)
         {
+            var project = new Project();
+            ResearchItem currentResearchItem = null;
+            try
+            {
+                project = _projectRepository.GetByUser(projectId, User.Identity.Name);
+                if (project == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Project not found for user " + User.Identity.Name + ".");
+                }
+                currentResearchItem = _researchItemRepository.GetByUser(researchItem.ResearchItemId, User.Identity.Name);
+                if (currentResearchItem == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Research item not found for user " + User.Identity.Name + ".");
+                }
+                currentResearchItem.DateUpdated = DateTime.Now;
+                currentResearchItem.Subject = researchItem.Subject;
+                currentResearchItem.Description = researchItem.Description;
+                _projectRepository.Commit();
+            }
+            catch (Exception ex)
+            {
+                var error = new HttpError("Error updating research item: " + ex.Message) { { "Trace", ex.StackTrace } };
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
+            }
+
+            var response = Request.CreateResponse(HttpStatusCode.OK, currentResearchItem);
+            string uri = Url.Link("ProjectResearchItemsApi", new { projectId = projectId, researchItemId = researchItem.ResearchItemId });
+            response.Headers.Location = new Uri(uri);
+            return response;
         }
 
-        // DELETE api/researchitems/5
-        public void Delete(int id)
+        // DELETE /api/projects/4/researchitems/5
+        public HttpResponseMessage Delete(int projectId, int researchItemId)
         {
+            try
+            {
+                // Verify that the user is the owner of project and research item.
+                var project = _projectRepository.GetByUser(projectId, User.Identity.Name);
+                if (project == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Project not found for user " + User.Identity.Name + ".");
+                }
+                var curentResearchItem = _researchItemRepository.GetByUser(researchItemId, User.Identity.Name);
+                if (curentResearchItem == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Research item not found for user " + User.Identity.Name + ".");
+                }
+
+                _researchItemRepository.Delete(curentResearchItem);
+                _researchItemRepository.Commit();
+            }
+            catch (Exception ex)
+            {
+                var error = new HttpError("Error deleting research item: " + ex.Message) { { "Trace", ex.StackTrace } };
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, error);
+            }
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
     }
 }

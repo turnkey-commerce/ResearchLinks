@@ -197,7 +197,7 @@ namespace ResearchLinks.Tests.Controllers
         }
 
         [Test]
-        public void Put_Project_Returns_Null_Project_For_John()
+        public void Put_James_Project_Returns_Null_Project_For_John()
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
