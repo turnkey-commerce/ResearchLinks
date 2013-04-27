@@ -31,7 +31,20 @@ app.factory("ResearchItems", function($rootScope, $http){
 
 		addResearchItem : function(projectId, $scope) {
 			return $http({ method: 'POST', url: "/api/projects/" + projectId + "/researchItems", data: {subject: $scope.subject, description: $scope.description, userName: $rootScope.username}, headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
+		},
+
+		getResearchItem : function(projectId, researchItemId) {
+			return $http({ method: 'GET', url: "/api/projects/" + projectId.toString() + "/researchItems/" + researchItemId.toString(), headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
+		},
+
+		editResearchItem: function(projectId, researchItemId, $scope) {
+			return $http({ method: 'PUT', url: "/api/projects/" + projectId.toString() + "/researchItems/" + researchItemId.toString(), data: { subject: $scope.subject, description: $scope.description, userName: $rootScope.username}, headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
+		},
+
+		deleteResearchItem: function(projectId, researchItemId, $scope) {
+			return $http({ method: 'DELETE', url: "/api/projects/" + projectId.toString() + "/researchItems/" + researchItemId.toString(), headers: { 'Authorization': 'Basic ' + Base64.encode($rootScope.username + ':' + $rootScope.password)} })
 		}
+
 	}
 
 });

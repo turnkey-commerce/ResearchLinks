@@ -8,6 +8,8 @@
             when('/delete/:projectId',{ controller: ProjectDeleteCtrl, templateUrl: '/app/partials/projectDelete.html' }).
             when('/:projectId/items',{ controller: ItemListCtrl, templateUrl: '/app/partials/itemList.html' }).
             when('/:projectId/items/new',{ controller: ItemNewCtrl, templateUrl: '/app/partials/itemNew.html' }).
+            when('/:projectId/items/edit/:researchItemId',{ controller: ItemEditCtrl, templateUrl: '/app/partials/itemEdit.html' }).
+            when('/:projectId/items/delete/:researchItemId',{ controller: ItemDeleteCtrl, templateUrl: '/app/partials/itemDelete.html' }).
             otherwise({ redirectTo: '/' })
     });
 

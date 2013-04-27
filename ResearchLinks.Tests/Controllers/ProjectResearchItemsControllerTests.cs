@@ -256,7 +256,7 @@ namespace ResearchLinks.Tests.Controllers
             var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 1, Subject = "Update Test 1", UserName = "james", Description = "Insert Test Description" };
 
             //Act
-            var response = researchItemsController.Put(1, inputResearchItem);
+            var response = researchItemsController.Put(1, 1, inputResearchItem);
 
             //Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode, "Expecting an OK Status Code");
@@ -273,7 +273,7 @@ namespace ResearchLinks.Tests.Controllers
             var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 3, Subject = "Update Test 1", UserName = "john", Description = "Insert Test Description" };
 
             //Act
-            var response = researchItemsController.Put(3, inputResearchItem);
+            var response = researchItemsController.Put(3, 1, inputResearchItem);
             dynamic errorMessage = JObject.Parse(response.Content.ReadAsStringAsync().Result);
 
             //Assert
@@ -291,7 +291,7 @@ namespace ResearchLinks.Tests.Controllers
             var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 1, Subject = "Update Test 1", UserName = "james", Description = "Insert Test Description" };
 
             //Act
-            var response = researchItemsController.Put(1, inputResearchItem);
+            var response = researchItemsController.Put(1, 1, inputResearchItem);
             dynamic errorMessage = JObject.Parse(response.Content.ReadAsStringAsync().Result);
 
             //Assert

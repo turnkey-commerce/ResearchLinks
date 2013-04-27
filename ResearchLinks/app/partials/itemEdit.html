@@ -1,0 +1,9 @@
+﻿<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+<form class="form-new-item" method="post" name="newItemForm" novalidate ng-submit="update()">
+    <fieldset>
+        <h2>Edit Research Item</h2>
+        Subject: <input type="text" required class="input-block-level" ng-model="subject" name="subject">
+        Description: <input type="text" required class="input-block-level" ng-model="description" name="description">
+        <p><button class="btn btn-primary btn-large" type="submit">Save</button></p>
+    </fieldset>
+</form>

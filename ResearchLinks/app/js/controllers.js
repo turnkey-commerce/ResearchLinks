@@ -146,6 +146,76 @@ function ItemNewCtrl($scope, $http, $location, $routeParams, ResearchItems) {
 
 };
 
+function ItemEditCtrl($scope, $http, $location, $routeParams, ResearchItems) {
+    $scope.alerts = [];
+
+    var getResult = ResearchItems.getResearchItem($routeParams.projectId, $routeParams.researchItemId);
+
+    getResult.success(function (getData,status) {
+      $scope.subject = getData.researchItems[0].subject;
+      $scope.description = getData.researchItems[0].description;
+    });
+
+    getResult.error(function(data,status){
+        HandleError(data, status, $scope, $location);
+    });
+    
+
+    $scope.update = function () {
+      var result = ResearchItems.editResearchItem($routeParams.projectId, $routeParams.researchItemId, $scope);
+
+      result.success(function (data, status) {
+        $location.path( "/" + data.projectId + "/items");
+      });
+
+      result.error(function (data, status) {
+          HandleError(data, status, $scope, $location);
+      });
+    };
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+
+};
+
+function ItemDeleteCtrl($scope, $http, $location, $routeParams, ResearchItems) {
+    $scope.alerts = [];
+
+    var getResult = ResearchItems.getResearchItem($routeParams.projectId, $routeParams.researchItemId);
+
+    getResult.success(function (getData,status) {
+      $scope.subject = getData.researchItems[0].subject;
+      $scope.description = getData.researchItems[0].description;
+    });
+
+    getResult.error(function(data,status){
+        HandleError(data, status, $scope, $location);
+    });
+    
+
+    $scope.delete = function () {
+      var result = ResearchItems.deleteResearchItem($routeParams.projectId, $routeParams.researchItemId, $scope);
+
+      result.success(function (data, status) {
+        $location.path( "/" + $routeParams.projectId + "/items");
+      });
+
+      result.error(function (data, status) {
+          HandleError(data, status, $scope, $location);
+      });
+    };
+
+    $scope.cancel = function () {
+        $location.path( "/" + $routeParams.projectId + "/items");
+    };
+
+    $scope.closeAlert = function (index) {
+        $scope.alerts.splice(index, 1);
+    };
+
+};
+
 
 function LoginCtrl($scope, $http, $location, Login) {
      // This will normally be called in the login controller.

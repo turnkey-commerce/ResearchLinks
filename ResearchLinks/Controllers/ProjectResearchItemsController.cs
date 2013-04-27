@@ -107,7 +107,7 @@ namespace ResearchLinks.Controllers
         }
 
         // PUT /api/projects/4/researchitems/5
-        public HttpResponseMessage Put(int projectId, ResearchItem researchItem)
+        public HttpResponseMessage Put(int projectId, int researchItemId, ResearchItem researchItem)
         {
             var project = new Project();
             ResearchItem currentResearchItem = null;
@@ -118,7 +118,7 @@ namespace ResearchLinks.Controllers
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Project not found for user " + User.Identity.Name + ".");
                 }
-                currentResearchItem = _researchItemRepository.GetByUser(researchItem.ResearchItemId, User.Identity.Name);
+                currentResearchItem = _researchItemRepository.GetByUser(researchItemId, User.Identity.Name);
                 if (currentResearchItem == null)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Research item not found for user " + User.Identity.Name + ".");
@@ -126,7 +126,7 @@ namespace ResearchLinks.Controllers
                 currentResearchItem.DateUpdated = DateTime.Now;
                 currentResearchItem.Subject = researchItem.Subject;
                 currentResearchItem.Description = researchItem.Description;
-                _projectRepository.Commit();
+                _researchItemRepository.Commit();
             }
             catch (Exception ex)
             {
