@@ -11,6 +11,6 @@ Scenario: Create a New Project
 		| UserName    | james            |
 		| Password    | james2013        |
 	When the client posts the inputs to the website
-	Then a 200 status should be returned
-	When the client gets the project by ID
-	Then the response JSON should match the inputs
+	Then a Created status should be returned
+	When the client gets the project by header location
+	Then the saved project matches the inputs
