@@ -159,6 +159,8 @@
     <Content Include="apiService.js" />
     <Content Include="app\js\controllers.js" />
     <Content Include="app\js\services.js" />
+    <Content Include="app\partials\itemDelete.html" />
+    <Content Include="app\partials\itemEdit.html" />
     <Content Include="app\partials\itemList.html" />
     <Content Include="app\partials\itemNew.html" />
     <Content Include="app\partials\login.html" />
