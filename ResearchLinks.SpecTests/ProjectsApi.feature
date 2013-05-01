@@ -6,7 +6,7 @@
 Scenario: Create a New Project
 	Given the following project inputs and authentication
 		| Field       | Value            |
-		| ProjectName | Test Project     |
+		| Name        | Test Project     |
 		| Description | Test Description |
 		| UserName    | james            |
 		| Password    | james2013        |
