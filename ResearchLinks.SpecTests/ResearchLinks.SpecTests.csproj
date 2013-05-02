@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -40,7 +43,9 @@
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\DatabaseHelpers.cs" />
     <Compile Include="Helpers\StepHelpers.cs" />
     <Compile Include="Models\ProjectTestModel.cs" />
     <Compile Include="ProjectsAPISteps.cs" />
@@ -75,6 +81,10 @@
     <ProjectReference Include="..\ResearchLinks.Data\ResearchLinks.Data.csproj">
       <Project>{570BD42B-4963-42FE-A063-6D966BF028D2}</Project>
       <Name>ResearchLinks.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResearchLinks\ResearchLinks.csproj">
+      <Project>{99546451-DD17-4AE7-B9CC-8CA4DC96CA69}</Project>
+      <Name>ResearchLinks</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

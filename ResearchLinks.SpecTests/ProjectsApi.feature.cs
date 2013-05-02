@@ -66,10 +66,10 @@ namespace ResearchLinks.SpecTests
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create a New Project")]
-        public virtual void CreateANewProject()
+        [NUnit.Framework.DescriptionAttribute("Create a new project saves posted values.")]
+        public virtual void CreateANewProjectSavesPostedValues_()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a New Project", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a new project saves posted values.", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line hidden
@@ -98,6 +98,394 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("the client gets the project by header location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
  testRunner.Then("the saved project matches the inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Create a new project With bad credentials returns Unauthorized status")]
+        public virtual void CreateANewProjectWithBadCredentialsReturnsUnauthorizedStatus()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a new project With bad credentials returns Unauthorized status", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table2.AddRow(new string[] {
+                        "Name",
+                        "Test Project"});
+            table2.AddRow(new string[] {
+                        "Description",
+                        "Test Description"});
+            table2.AddRow(new string[] {
+                        "UserName",
+                        "james"});
+            table2.AddRow(new string[] {
+                        "Password",
+                        "bogus"});
+#line 19
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table2, "Given ");
+#line 25
+ testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
+ testRunner.Then("a Unauthorized status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Create a new project with no credentials returns Unauthorized status")]
+        public virtual void CreateANewProjectWithNoCredentialsReturnsUnauthorizedStatus()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a new project with no credentials returns Unauthorized status", ((string[])(null)));
+#line 28
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "Name",
+                        "Test Project"});
+            table3.AddRow(new string[] {
+                        "Description",
+                        "Test Description"});
+#line 29
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table3, "Given ");
+#line 33
+ testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
+ testRunner.Then("a Unauthorized status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get projects contains created project")]
+        public virtual void GetProjectsContainsCreatedProject()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get projects contains created project", ((string[])(null)));
+#line 36
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table4.AddRow(new string[] {
+                        "Name",
+                        "Test Project"});
+            table4.AddRow(new string[] {
+                        "Description",
+                        "Test Description"});
+            table4.AddRow(new string[] {
+                        "UserName",
+                        "james"});
+            table4.AddRow(new string[] {
+                        "Password",
+                        "james2013"});
+#line 37
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table4, "Given ");
+#line 43
+ testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 44
+ testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 45
+ testRunner.When("the client gets all projects", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 46
+ testRunner.Then("the saved project should be in the list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get projects does not contain other users projects")]
+        public virtual void GetProjectsDoesNotContainOtherUsersProjects()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get projects does not contain other users projects", ((string[])(null)));
+#line 48
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table5.AddRow(new string[] {
+                        "Name",
+                        "Test Project"});
+            table5.AddRow(new string[] {
+                        "Description",
+                        "Test Description"});
+            table5.AddRow(new string[] {
+                        "UserName",
+                        "james"});
+            table5.AddRow(new string[] {
+                        "Password",
+                        "james2013"});
+#line 49
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table5, "Given ");
+#line 55
+ testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 56
+ testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table6.AddRow(new string[] {
+                        "Name",
+                        "Test Project 2"});
+            table6.AddRow(new string[] {
+                        "Description",
+                        "Test Description 2"});
+            table6.AddRow(new string[] {
+                        "UserName",
+                        "john"});
+            table6.AddRow(new string[] {
+                        "Password",
+                        "john2013"});
+#line 57
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table6, "Given ");
+#line 63
+ testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 64
+ testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 65
+ testRunner.When("the client gets all projects", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 66
+ testRunner.Then("the saved project should be in the list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Put project saves put values as edited")]
+        public virtual void PutProjectSavesPutValuesAsEdited()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Put project saves put values as edited", ((string[])(null)));
+#line 68
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table7.AddRow(new string[] {
+                        "Name",
+                        "Test Project"});
+            table7.AddRow(new string[] {
+                        "Description",
+                        "Test Description"});
+            table7.AddRow(new string[] {
+                        "UserName",
+                        "james"});
+            table7.AddRow(new string[] {
+                        "Password",
+                        "james2013"});
+#line 69
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table7, "Given ");
+#line 75
+ testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 76
+ testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 77
+ testRunner.When("the client gets the project by header location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 78
+ testRunner.Then("the saved project matches the inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table8.AddRow(new string[] {
+                        "Name",
+                        "Test Project Edited"});
+            table8.AddRow(new string[] {
+                        "Description",
+                        "Test Description Edited"});
+            table8.AddRow(new string[] {
+                        "UserName",
+                        "james"});
+            table8.AddRow(new string[] {
+                        "Password",
+                        "james2013"});
+#line 79
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table8, "Given ");
+#line 85
+ testRunner.When("the client puts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 86
+ testRunner.Then("a OK status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 87
+ testRunner.When("the client gets the project by header location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 88
+ testRunner.Then("the saved project matches the inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Put project by wrong user returns not found")]
+        public virtual void PutProjectByWrongUserReturnsNotFound()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Put project by wrong user returns not found", ((string[])(null)));
+#line 90
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table9.AddRow(new string[] {
+                        "Name",
+                        "Test Project"});
+            table9.AddRow(new string[] {
+                        "Description",
+                        "Test Description"});
+            table9.AddRow(new string[] {
+                        "UserName",
+                        "james"});
+            table9.AddRow(new string[] {
+                        "Password",
+                        "james2013"});
+#line 91
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table9, "Given ");
+#line 97
+ testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 98
+ testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 99
+ testRunner.When("the client gets the project by header location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 100
+ testRunner.Then("the saved project matches the inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table10.AddRow(new string[] {
+                        "Name",
+                        "Test Project Edited"});
+            table10.AddRow(new string[] {
+                        "Description",
+                        "Test Description Edited"});
+            table10.AddRow(new string[] {
+                        "UserName",
+                        "john"});
+            table10.AddRow(new string[] {
+                        "Password",
+                        "john2013"});
+#line 101
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table10, "Given ");
+#line 107
+ testRunner.When("the client puts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 108
+ testRunner.Then("a NotFound status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete project removes project from database")]
+        public virtual void DeleteProjectRemovesProjectFromDatabase()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete project removes project from database", ((string[])(null)));
+#line 110
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table11.AddRow(new string[] {
+                        "Name",
+                        "Test Project"});
+            table11.AddRow(new string[] {
+                        "Description",
+                        "Test Description"});
+            table11.AddRow(new string[] {
+                        "UserName",
+                        "james"});
+            table11.AddRow(new string[] {
+                        "Password",
+                        "james2013"});
+#line 111
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table11, "Given ");
+#line 117
+ testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 118
+ testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 119
+ testRunner.When("the client gets the project by header location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 120
+ testRunner.Then("the saved project matches the inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table12.AddRow(new string[] {
+                        "UserName",
+                        "james"});
+            table12.AddRow(new string[] {
+                        "Password",
+                        "james2013"});
+#line 121
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table12, "Given ");
+#line 125
+ testRunner.When("the client issues delete for the save project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 126
+ testRunner.Then("a NoContent status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 127
+ testRunner.When("the client gets the project by ID", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 128
+ testRunner.Then("a NotFound status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete project by wrong user returns not found")]
+        public virtual void DeleteProjectByWrongUserReturnsNotFound()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete project by wrong user returns not found", ((string[])(null)));
+#line 130
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table13.AddRow(new string[] {
+                        "Name",
+                        "Test Project"});
+            table13.AddRow(new string[] {
+                        "Description",
+                        "Test Description"});
+            table13.AddRow(new string[] {
+                        "UserName",
+                        "james"});
+            table13.AddRow(new string[] {
+                        "Password",
+                        "james2013"});
+#line 131
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table13, "Given ");
+#line 137
+ testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 138
+ testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 139
+ testRunner.When("the client gets the project by header location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 140
+ testRunner.Then("the saved project matches the inputs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table14.AddRow(new string[] {
+                        "UserName",
+                        "john"});
+            table14.AddRow(new string[] {
+                        "Password",
+                        "john2013"});
+#line 141
+ testRunner.Given("the following project inputs and authentication", ((string)(null)), table14, "Given ");
+#line 145
+ testRunner.When("the client issues delete for the save project", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 146
+ testRunner.Then("a NotFound status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

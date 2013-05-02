@@ -24,7 +24,8 @@ namespace ResearchLinks.Data.Migrations
             roles.ForEach(r => context.Roles.AddOrUpdate(r));
 
             // Create a user.
-            Utility.CreateNewUser(context, "james", "james2013", "info@turnkey-commerce.com", RoleConstants.RoleAdmin, "James", "Culbertson");
+            Utility.CreateNewUser(context, "james", "james2013", "james@user.com", RoleConstants.RoleAdmin, "James", "User");
+            Utility.CreateNewUser(context, "john", "john2013", "john@user.com", RoleConstants.RoleAdmin, "John", "User");
         }
     }
 }

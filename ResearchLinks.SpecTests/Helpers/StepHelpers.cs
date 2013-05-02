@@ -15,7 +15,10 @@ namespace ResearchLinks.SpecTests.Helpers
             var postData = new List<KeyValuePair<string, string>>();
             foreach (PropertyInfo property in testClass.GetType().GetProperties())
             {
-                postData.Add(new KeyValuePair<string, string>(property.Name.ToString(), property.GetValue(testClass, null).ToString()));
+                if (property.GetValue(testClass, null) != null)
+                {
+                    postData.Add(new KeyValuePair<string, string>(property.Name.ToString(), property.GetValue(testClass, null).ToString()));
+                }
             }
             return postData;
         }
@@ -23,9 +26,12 @@ namespace ResearchLinks.SpecTests.Helpers
         public static HttpClient SetupHttpClient(string userName, string password)
         {
             var client = new HttpClient();
-            var buffer = Encoding.ASCII.GetBytes(userName + ":" + password);
-            var authHeader = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(buffer));
-            client.DefaultRequestHeaders.Authorization = authHeader;
+            if (!String.IsNullOrEmpty(userName) && !String.IsNullOrEmpty(password))
+            {
+                var buffer = Encoding.ASCII.GetBytes(userName + ":" + password);
+                var authHeader = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(buffer));
+                client.DefaultRequestHeaders.Authorization = authHeader;
+            }
             return client;
         }
 
