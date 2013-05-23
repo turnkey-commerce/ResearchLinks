@@ -61,6 +61,11 @@
     <Compile Include="Helpers\StepHelpers.cs" />
     <Compile Include="Models\ProjectTestModel.cs" />
     <Compile Include="ProjectsAPISteps.cs" />
+    <Compile Include="ProjectsAPI_V2.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectsAPI_V2.feature</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProjectsApi.feature.cs">
       <AutoGen>True</AutoGen>
@@ -75,6 +80,10 @@
     <None Include="ProjectsApi.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ProjectsApi.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ProjectsAPI_V2.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ProjectsAPI_V2.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

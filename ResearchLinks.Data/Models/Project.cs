@@ -21,6 +21,9 @@ namespace ResearchLinks.Data.Models
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 
+        // Added for version 2 and higher
+        public bool? IsUrgent { get; set; }
+
         [Required]
         public string UserName { get; set; }
         public User User { get; set; }

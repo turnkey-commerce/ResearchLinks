@@ -16,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
 using ResearchLinks.DTO;
+using ResearchLinks.Controllers.Version1;
 
 namespace ResearchLinks.Tests.Controllers
 {

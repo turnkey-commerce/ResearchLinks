@@ -56,6 +56,9 @@
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC3.3.0.0.6\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="SDammann.WebApi.Versioning">
+      <HintPath>..\packages\SDammann.WebApi.Versioning.2.0.0.0\lib\net40\SDammann.WebApi.Versioning.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -135,18 +138,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Version2\LoginController.cs" />
+    <Compile Include="Controllers\Version2\ProjectResearchItemsController.cs" />
+    <Compile Include="Controllers\Version2\ProjectsController.cs" />
+    <Compile Include="Controllers\LoginControllerBase.cs" />
+    <Compile Include="Controllers\ProjectResearchItemsControllerBase.cs" />
+    <Compile Include="Controllers\ProjectsControllerBase.cs" />
     <Compile Include="DTO\ProjectDto.cs" />
     <Compile Include="DTO\ResearchItemDto.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="Controllers\ProjectResearchItemsController.cs" />
+    <Compile Include="Controllers\Version1\ProjectResearchItemsController.cs" />
     <Compile Include="NinjectDependencyResolver.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BasicAuthenticationMessageHandler.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\Version1\LoginController.cs" />
+    <Compile Include="Controllers\Version1\ProjectsController.cs" />
     <Compile Include="Filters\ValidationFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

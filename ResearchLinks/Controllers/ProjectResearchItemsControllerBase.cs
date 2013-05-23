@@ -11,19 +11,13 @@ using ResearchLinks.DTO;
 namespace ResearchLinks.Controllers
 {
     [Authorize]
-    public class ProjectResearchItemsController : ApiController
+    public class ProjectResearchItemsControllerBase : ApiController
     {
-        private readonly IResearchItemRepository _researchItemRepository;
-        private readonly IProjectRepository _projectRepository;
-
-        public ProjectResearchItemsController(IResearchItemRepository researchItemRepository, IProjectRepository projectRepository)
-        {
-            _researchItemRepository = researchItemRepository;
-            _projectRepository = projectRepository;
-        }
+        protected IResearchItemRepository _researchItemRepository;
+        protected IProjectRepository _projectRepository;
 
         // GET /api/projects/4/researchItems
-        public HttpResponseMessage Get(int projectId)
+        public virtual HttpResponseMessage Get(int projectId)
         {
             var researchItems = new List<ResearchItem>();
             var project = new Project();
@@ -46,7 +40,7 @@ namespace ResearchLinks.Controllers
         }
 
         // GET /api/projects/4/researchitems/5
-        public HttpResponseMessage Get(int projectId, int researchItemId)
+        public virtual HttpResponseMessage Get(int projectId, int researchItemId)
         {
             var researchItems = new List<ResearchItem>();
             var project = new Project();
@@ -81,7 +75,7 @@ namespace ResearchLinks.Controllers
         }
 
         // POST /api/projects/4/researchItems
-        public HttpResponseMessage Post(int projectId, ResearchItem researchItem)
+        public virtual HttpResponseMessage Post(int projectId, ResearchItem researchItem)
         {
             try {
                 // Make sure it is being inserted to a project owned by the user.
@@ -107,7 +101,7 @@ namespace ResearchLinks.Controllers
         }
 
         // PUT /api/projects/4/researchitems/5
-        public HttpResponseMessage Put(int projectId, int researchItemId, ResearchItem researchItem)
+        public virtual HttpResponseMessage Put(int projectId, int researchItemId, ResearchItem researchItem)
         {
             var project = new Project();
             ResearchItem currentResearchItem = null;
@@ -141,7 +135,7 @@ namespace ResearchLinks.Controllers
         }
 
         // DELETE /api/projects/4/researchitems/5
-        public HttpResponseMessage Delete(int projectId, int researchItemId)
+        public virtual HttpResponseMessage Delete(int projectId, int researchItemId)
         {
             try
             {

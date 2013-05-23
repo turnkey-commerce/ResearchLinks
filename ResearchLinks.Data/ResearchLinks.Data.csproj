@@ -55,6 +55,10 @@
     <Compile Include="Migrations\201304021846339_Add Tag Model.Designer.cs">
       <DependentUpon>201304021846339_Add Tag Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201305232059117_Add IsUrgent Bool to Project.cs" />
+    <Compile Include="Migrations\201305232059117_Add IsUrgent Bool to Project.Designer.cs">
+      <DependentUpon>201305232059117_Add IsUrgent Bool to Project.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Link.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -91,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201304021846339_Add Tag Model.resx">
       <DependentUpon>201304021846339_Add Tag Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201305232059117_Add IsUrgent Bool to Project.resx">
+      <DependentUpon>201305232059117_Add IsUrgent Bool to Project.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

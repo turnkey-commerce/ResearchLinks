@@ -3,14 +3,14 @@
 	As a client of the Web Api
 	I want to be able to Create, Update, Delete, and List projects
 
-Scenario: Create a new project saves posted values.
+Scenario: Create a new project saves posted values
 	Given the following project inputs and authentication
 		| Field       | Value            |
 		| Name        | Test Project     |
 		| Description | Test Description |
 		| UserName    | james            |
 		| Password    | james2013        |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Created status should be returned
 	When the client gets the project by header location
 	Then the saved project matches the inputs
@@ -22,7 +22,7 @@ Scenario: Create a new project With bad credentials returns Unauthorized status
 		| Description | Test Description |
 		| UserName    | james            |
 		| Password    | bogus        |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Unauthorized status should be returned
 
 Scenario: Create a new project with no credentials returns Unauthorized status
@@ -30,7 +30,7 @@ Scenario: Create a new project with no credentials returns Unauthorized status
 		| Field       | Value            |
 		| Name        | Test Project     |
 		| Description | Test Description |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Unauthorized status should be returned
 
 Scenario: Get projects contains created project
@@ -40,7 +40,7 @@ Scenario: Get projects contains created project
 		| Description | Test Description |
 		| UserName    | james            |
 		| Password    | james2013        |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Created status should be returned
 	When the client gets all projects
 	Then the saved project should be in the list
@@ -52,7 +52,7 @@ Scenario: Get projects does not contain other users projects
 		| Description | Test Description |
 		| UserName    | james            |
 		| Password    | james2013        |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Created status should be returned
 	Given the following project inputs and authentication
 		| Field       | Value              |
@@ -60,7 +60,7 @@ Scenario: Get projects does not contain other users projects
 		| Description | Test Description 2 |
 		| UserName    | john               |
 		| Password    | john2013           |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Created status should be returned
 	When the client gets all projects
 	Then the saved project should be in the list
@@ -72,7 +72,7 @@ Scenario: Put project saves put values as edited
 		| Description | Test Description |
 		| UserName    | james            |
 		| Password    | james2013        |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Created status should be returned
 	When the client gets the project by header location
 	Then the saved project matches the inputs
@@ -82,7 +82,7 @@ Scenario: Put project saves put values as edited
 		| Description | Test Description Edited |
 		| UserName    | james                   |
 		| Password    | james2013               |
-	When the client puts the inputs to the website
+	When the client puts the inputs to the website for V1
 	Then a OK status should be returned
 	When the client gets the project by header location
 	Then the saved project matches the inputs
@@ -94,7 +94,7 @@ Scenario: Put project by wrong user returns not found
 		| Description | Test Description |
 		| UserName    | james            |
 		| Password    | james2013        |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Created status should be returned
 	When the client gets the project by header location
 	Then the saved project matches the inputs
@@ -104,7 +104,7 @@ Scenario: Put project by wrong user returns not found
 		| Description | Test Description Edited |
 		| UserName    | john                   |
 		| Password    | john2013               |
-	When the client puts the inputs to the website
+	When the client puts the inputs to the website for V1
 	Then a NotFound status should be returned
 
 Scenario: Delete project removes project from database
@@ -114,7 +114,7 @@ Scenario: Delete project removes project from database
 		| Description | Test Description |
 		| UserName    | james            |
 		| Password    | james2013        |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Created status should be returned
 	When the client gets the project by header location
 	Then the saved project matches the inputs
@@ -134,7 +134,7 @@ Scenario: Delete project by wrong user returns not found
 		| Description | Test Description |
 		| UserName    | james            |
 		| Password    | james2013        |
-	When the client posts the inputs to the website
+	When the client posts the inputs to the website for V1
 	Then a Created status should be returned
 	When the client gets the project by header location
 	Then the saved project matches the inputs

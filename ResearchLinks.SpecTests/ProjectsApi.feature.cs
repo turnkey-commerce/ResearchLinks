@@ -66,10 +66,10 @@ namespace ResearchLinks.SpecTests
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create a new project saves posted values.")]
-        public virtual void CreateANewProjectSavesPostedValues_()
+        [NUnit.Framework.DescriptionAttribute("Create a new project saves posted values")]
+        public virtual void CreateANewProjectSavesPostedValues()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a new project saves posted values.", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a new project saves posted values", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line hidden
@@ -91,7 +91,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table1, "Given ");
 #line 13
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
  testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 15
@@ -128,7 +128,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 19
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table2, "Given ");
 #line 25
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 26
  testRunner.Then("a Unauthorized status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -155,7 +155,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 29
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table3, "Given ");
 #line 33
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 34
  testRunner.Then("a Unauthorized status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -188,7 +188,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 37
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table4, "Given ");
 #line 43
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 44
  testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 45
@@ -225,7 +225,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 49
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table5, "Given ");
 #line 55
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 56
  testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -247,7 +247,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 57
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table6, "Given ");
 #line 63
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 64
  testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 65
@@ -284,7 +284,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 69
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table7, "Given ");
 #line 75
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 76
  testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 77
@@ -310,7 +310,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 79
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table8, "Given ");
 #line 85
- testRunner.When("the client puts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client puts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 86
  testRunner.Then("a OK status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 87
@@ -347,7 +347,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 91
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table9, "Given ");
 #line 97
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 98
  testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 99
@@ -373,7 +373,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 101
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table10, "Given ");
 #line 107
- testRunner.When("the client puts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client puts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 108
  testRunner.Then("a NotFound status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -406,7 +406,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 111
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table11, "Given ");
 #line 117
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 118
  testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 119
@@ -463,7 +463,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 131
  testRunner.Given("the following project inputs and authentication", ((string)(null)), table13, "Given ");
 #line 137
- testRunner.When("the client posts the inputs to the website", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the client posts the inputs to the website for V1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 138
  testRunner.Then("a Created status should be returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 139

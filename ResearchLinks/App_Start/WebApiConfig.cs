@@ -10,15 +10,16 @@ namespace ResearchLinks
     {
         public static void Register(HttpConfiguration config)
         {
+            // using versioning in route to select controllers, e.g. v1, v2, etc.
             config.Routes.MapHttpRoute(
                 name: "ProjectResearchItemsApi",
-                routeTemplate: "api/projects/{projectId}/researchItems/{researchItemId}",
+                routeTemplate: "api/v{version}/projects/{projectId}/researchItems/{researchItemId}",
                 defaults: new { Controller = "ProjectResearchItems", researchItemId = RouteParameter.Optional }
             );
             
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "api/v{version}/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
 

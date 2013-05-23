@@ -15,17 +15,12 @@ using ResearchLinks.DTO;
 namespace ResearchLinks.Controllers
 {
     [Authorize]
-    public class ProjectsController : ApiController
+    public abstract class ProjectsControllerBase : ApiController
     {
-        private readonly IProjectRepository _projectRepository;
-
-        public ProjectsController(IProjectRepository projectRepository)
-        {
-            _projectRepository = projectRepository;
-        }
+        protected IProjectRepository _projectRepository;
 
         // GET api/projects
-        public HttpResponseMessage Get()
+        public virtual HttpResponseMessage Get()
         {
             var projects = new List<Project>();
             try
@@ -48,7 +43,7 @@ namespace ResearchLinks.Controllers
         }
 
         // GET api/projects/5 (Detail)
-        public HttpResponseMessage Get(int id)
+        public virtual HttpResponseMessage Get(int id)
         {
             var project = new Project();
             try
@@ -70,7 +65,7 @@ namespace ResearchLinks.Controllers
 
 
         // POST api/projects (Insert)
-        public HttpResponseMessage Post(Project project)
+        public virtual HttpResponseMessage Post(Project project)
         {
             try
             {
@@ -92,7 +87,7 @@ namespace ResearchLinks.Controllers
         }
 
         // PUT api/projects/5  (Update)
-        public HttpResponseMessage Put(int id, Project project)
+        public virtual HttpResponseMessage Put(int id, Project project)
         {
             var currentProject = new Project();
             try
@@ -120,7 +115,7 @@ namespace ResearchLinks.Controllers
         }
 
         // DELETE api/projects/5
-        public HttpResponseMessage Delete(int id)
+        public virtual HttpResponseMessage Delete(int id)
         {
             try
             {

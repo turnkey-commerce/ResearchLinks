@@ -7,15 +7,15 @@ using System.Web.Http;
 
 namespace ResearchLinks.Controllers
 {
-    public class LoginController : ApiController
+    public abstract class LoginControllerBase : ApiController
     {
         [Authorize]
-        public HttpResponseMessage Post()
+        public virtual HttpResponseMessage Post()
         {
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        public HttpResponseMessage Get()
+        public virtual HttpResponseMessage Get()
         {
             return Request.CreateResponse(HttpStatusCode.OK);
         }

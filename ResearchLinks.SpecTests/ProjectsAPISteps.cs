@@ -23,26 +23,17 @@ namespace ResearchLinks.SpecTests
         private HttpResponseMessage _responseContent;
         private Project _projectSaved;
         private ProjectDto _projectDto;
-        private int _projectId;
 
         [Given(@"the following project inputs and authentication")]
         public void GivenTheFollowingProjectInputsAndAuthentication(Table table)
         {
+            // First initialize back in case of resuse in the same run.
+            _projectTestModel.IsUrgent = null;
+            _projectTestModel.Name = "";
+            _projectTestModel.Description = "";
             table.FillInstance<ProjectTestModel>(_projectTestModel);
         }
 
-        [When(@"the client posts the inputs to the website")]
-        public void WhenTheClientPostsTheInputsToTheWebsite()
-        {
-
-            var client = StepHelpers.SetupHttpClient(_projectTestModel.UserName, _projectTestModel.Password);
-
-            var postData = StepHelpers.SetPostData<ProjectTestModel>(_projectTestModel);
-            HttpContent content = new FormUrlEncodedContent(postData);
-
-            _responseContent = client.PostAsync("http://localhost:55301/api/projects", content).Result;
-            client.Dispose();
-        }
 
         [Then(@"a (.*) status should be returned")]
         public void ThenAStatusShouldBeReturned(string statusCode)
@@ -63,7 +54,7 @@ namespace ResearchLinks.SpecTests
         public void WhenTheClientGetsTheProjectByID()
         {
             var client = StepHelpers.SetupHttpClient(_projectTestModel.UserName, _projectTestModel.Password);
-            _responseContent = client.GetAsync("http://localhost:55301/api/projects/" + _projectSaved.ProjectId).Result;
+            _responseContent = client.GetAsync("http://localhost:55301/api/v1/projects/" + _projectSaved.ProjectId).Result;
             _projectSaved = JsonConvert.DeserializeObject<Project>(_responseContent.Content.ReadAsStringAsync().Result);
             client.Dispose();
         }
@@ -81,7 +72,7 @@ namespace ResearchLinks.SpecTests
         {
             var client = StepHelpers.SetupHttpClient(_projectTestModel.UserName, _projectTestModel.Password);
 
-            _responseContent = client.GetAsync("http://localhost:55301/api/projects").Result;
+            _responseContent = client.GetAsync("http://localhost:55301/api/v1/projects").Result;
             _projectDto = JsonConvert.DeserializeObject<ProjectDto>(_responseContent.Content.ReadAsStringAsync().Result);
             client.Dispose();
         }
@@ -95,27 +86,48 @@ namespace ResearchLinks.SpecTests
             Assert.AreEqual(_projectTestModel.UserName, _projectDto.Projects[0].UserName);
         }
 
-        [When(@"the client puts the inputs to the website")]
-        public void WhenTheClientPutsTheInputsToTheWebsite()
+        [When(@"the client issues delete for the save project")]
+        public void WhenTheClientIssuesDeleteForTheSaveProject()
+        {
+            var client = StepHelpers.SetupHttpClient(_projectTestModel.UserName, _projectTestModel.Password);
+
+            _responseContent = client.DeleteAsync("http://localhost:55301/api/v1/projects/" + _projectSaved.ProjectId).Result;
+            client.Dispose();
+        }
+
+        [When(@"the client posts the inputs to the website for V(.*)")]
+        public void WhenTheClientPostsTheInputsToTheWebsiteForV(int version)
         {
             var client = StepHelpers.SetupHttpClient(_projectTestModel.UserName, _projectTestModel.Password);
 
             var postData = StepHelpers.SetPostData<ProjectTestModel>(_projectTestModel);
             HttpContent content = new FormUrlEncodedContent(postData);
 
-            _responseContent = client.PutAsync("http://localhost:55301/api/projects/" + _projectSaved.ProjectId, content).Result;
+            _responseContent = client.PostAsync("http://localhost:55301/api/v" + version.ToString() + "/projects", content).Result;
             client.Dispose();
         }
 
-        [When(@"the client issues delete for the save project")]
-        public void WhenTheClientIssuesDeleteForTheSaveProject()
+        [When(@"the client puts the inputs to the website for V(.*)")]
+        public void WhenTheClientPutsTheInputsToTheWebsiteForV(int version)
         {
             var client = StepHelpers.SetupHttpClient(_projectTestModel.UserName, _projectTestModel.Password);
 
-            _responseContent = client.DeleteAsync("http://localhost:55301/api/projects/" + _projectSaved.ProjectId).Result;
+            var postData = StepHelpers.SetPostData<ProjectTestModel>(_projectTestModel);
+            HttpContent content = new FormUrlEncodedContent(postData);
+
+            _responseContent = client.PutAsync("http://localhost:55301/api/v" + version.ToString() + "/projects/" + _projectSaved.ProjectId, content).Result;
             client.Dispose();
         }
 
 
+        [Then(@"the saved project matches the inputs including IsUrgent")]
+        public void ThenTheSavedProjectMatchesTheInputsIncludingIsUrgent()
+        {
+            Assert.AreEqual(_projectTestModel.Name, _projectSaved.Name);
+            Assert.AreEqual(_projectTestModel.Description, _projectSaved.Description);
+            Assert.AreEqual(_projectTestModel.IsUrgent, _projectSaved.IsUrgent);
+            Assert.AreEqual(_projectTestModel.UserName, _projectSaved.UserName);
+
+        }
     }
 }
