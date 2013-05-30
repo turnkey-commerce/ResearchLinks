@@ -59,12 +59,16 @@ namespace ResearchLinks.SpecTests
             client.Dispose();
         }
 
-        [Then(@"the saved project matches the inputs")]
-        public void ThenTheSavedProjectMatchesTheInputs()
+        [Then(@"the saved project matches the inputs for V(.*)")]
+        public void ThenTheSavedProjectMatchesTheInputs(int version)
         {
             Assert.AreEqual(_projectTestModel.Name, _projectSaved.Name);
             Assert.AreEqual(_projectTestModel.Description, _projectSaved.Description);
             Assert.AreEqual(_projectTestModel.UserName, _projectSaved.UserName);
+            if (version == 2) 
+            {
+                Assert.AreEqual(_projectTestModel.IsUrgent, _projectSaved.IsUrgent);
+            }
         }
 
         [When(@"the client gets all projects")]
@@ -117,17 +121,6 @@ namespace ResearchLinks.SpecTests
 
             _responseContent = client.PutAsync("http://localhost:55301/api/v" + version.ToString() + "/projects/" + _projectSaved.ProjectId, content).Result;
             client.Dispose();
-        }
-
-
-        [Then(@"the saved project matches the inputs including IsUrgent")]
-        public void ThenTheSavedProjectMatchesTheInputsIncludingIsUrgent()
-        {
-            Assert.AreEqual(_projectTestModel.Name, _projectSaved.Name);
-            Assert.AreEqual(_projectTestModel.Description, _projectSaved.Description);
-            Assert.AreEqual(_projectTestModel.IsUrgent, _projectSaved.IsUrgent);
-            Assert.AreEqual(_projectTestModel.UserName, _projectSaved.UserName);
-
         }
     }
 }

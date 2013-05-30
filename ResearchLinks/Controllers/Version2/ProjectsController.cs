@@ -78,6 +78,7 @@ namespace ResearchLinks.Controllers.Version2
                 currentProject.DateUpdated = DateTime.Now;
                 currentProject.Name = project.Name;
                 currentProject.Description = project.Description;
+                currentProject.IsUrgent = project.IsUrgent;
                 _projectRepository.Commit();
             }
             catch (Exception ex)
