@@ -16,7 +16,6 @@ using Newtonsoft.Json.Linq;
 using System.Web.Http.Controllers;
 using System.Web.Http.Routing;
 using ResearchLinks.DTO;
-using ResearchLinks.Controllers.Version1;
 
 namespace ResearchLinks.Tests.Controllers
 {
@@ -27,25 +26,31 @@ namespace ResearchLinks.Tests.Controllers
         private Mock<IProjectRepository> _projectRepository;
         private Mock<IResearchItemRepository> _researchItemRepository;
 
-        [Test]
-        public void ProjectsController_Class_Has_Authorization_Attribute()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void ProjectsController_Class_Has_Authorization_Attribute(string version)
         {
             // Setup
-            var attributes = typeof(ProjectResearchItemsController)
-                .GetCustomAttributes(typeof(AuthorizeAttribute), true);
-
+            object[] attributes = null;
+            if (version == "V1")
+                attributes = typeof(ResearchLinks.Controllers.Version1.ProjectResearchItemsController)
+                    .GetCustomAttributes(typeof(AuthorizeAttribute), true);
+            else if (version == "V2")
+                attributes = typeof(ResearchLinks.Controllers.Version2.ProjectResearchItemsController)
+                    .GetCustomAttributes(typeof(AuthorizeAttribute), true);
             //Assert
             Assert.Greater(attributes.Length, 0);
         }
 
         #region Get ResearchItems Tests
-        [Test]
-        public void Get_ResearchItems_Returns_Expected_ResearchItems_For_James()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Get_ResearchItems_Returns_Expected_ResearchItems_For_James(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get, version);
 
             //Act
             var response = researchItemsController.Get(1);
@@ -60,13 +65,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual("Test Research Item 1", responseContent.ResearchItems[0].Subject);
         }
 
-        [Test]
-        public void Get_ResearchItems_Returns_Expected_ResearchItems_For_John()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Get_ResearchItems_Returns_Expected_ResearchItems_For_John(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Get);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Get, version);
 
             //Act
             var response = researchItemsController.Get(3);
@@ -81,13 +87,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual("Test Research Item 3", responseContent.ResearchItems[0].Subject);
         }
 
-        [Test]
-        public void Get_ResearchItems_Returns_Not_Found_For_John_With_Wrong_ProjectId()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Get_ResearchItems_Returns_Not_Found_For_John_With_Wrong_ProjectId(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Get);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Get, version);
 
             //Act
             var response = researchItemsController.Get(1);
@@ -97,13 +104,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode, "Expecting a Not Found Status Code");
         }
 
-        [Test]
-        public void Get_ResearchItems_Database_Exception_Returns_Error()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Get_ResearchItems_Database_Exception_Returns_Error(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Exception);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Get);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Get, version);
 
             //Act
             var response = researchItemsController.Get(3);
@@ -116,13 +124,14 @@ namespace ResearchLinks.Tests.Controllers
         #endregion
 
         #region Get ResearchItem Tests
-        [Test]
-        public void Get_ResearchItem_By_ResearchItem_And_ProjectId_Returns_Expected_ResearchItem_For_James()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Get_ResearchItem_By_ResearchItem_And_ProjectId_Returns_Expected_ResearchItem_For_James(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get, version);
 
             //Act
             var response = researchItemsController.Get(1, 1);
@@ -138,13 +147,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual("Test Research Item 1", responseContent.ResearchItems[0].Subject);
         }
 
-        [Test]
-        public void Get_ResearchItem_By_ResearchItem_And_ProjectId_Returns_Not_Found_With_Wrong_ProjectId_For_James()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Get_ResearchItem_By_ResearchItem_And_ProjectId_Returns_Not_Found_With_Wrong_ProjectId_For_James(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get, version);
 
             //Act
             var response = researchItemsController.Get(3,1);
@@ -155,13 +165,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual("Project not found for user james.", (string)errorMessage.Message);
         }
 
-        [Test]
-        public void Get_ResearchItem_By_ResearchItem_And_ProjectId_Returns_Not_Found_With_Wrong_ResearchItemId_For_James()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Get_ResearchItem_By_ResearchItem_And_ProjectId_Returns_Not_Found_With_Wrong_ResearchItemId_For_James(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get, version);
 
             //Act
             var response = researchItemsController.Get(1, 3);
@@ -172,13 +183,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual("Research item not found for user james.", (string)errorMessage.Message);
         }
 
-        [Test]
-        public void Get_ResearchItem_By_ResearchItem_And_ProjectId_Database_Exception_Returns_Error()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Get_ResearchItem_By_ResearchItem_And_ProjectId_Database_Exception_Returns_Error(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Exception);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Get, version);
 
             //Act
             var response = researchItemsController.Get(1, 1);
@@ -191,13 +203,14 @@ namespace ResearchLinks.Tests.Controllers
         #endregion
 
         #region Post ResearchItem Tests
-        [Test]
-        public void Post_ResearchItem_Returns_Expected_Header()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Post_ResearchItem_Returns_Expected_Header(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Post);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Post, version);
             var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 1, Subject = "Insert Test", UserName = "james", Description = "Insert Test Description" };
 
             //Act
@@ -209,13 +222,14 @@ namespace ResearchLinks.Tests.Controllers
         }
 
 
-        [Test]
-        public void Post_ResearchItem_Returns_NotFound_Error_With_Wrong_ProjectId_For_James()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Post_ResearchItem_Returns_NotFound_Error_With_Wrong_ProjectId_For_James(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Post);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Post, version);
             var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 3, Subject = "Insert Test", UserName = "james", Description = "Insert Test Description" };
 
             //Act
@@ -227,13 +241,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual("Project not found for user james.", (string)errorMessage.Message);
         }
 
-        [Test]
-        public void Post_Project_Database_Exception_Returns_Error()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Post_Project_Database_Exception_Returns_Error(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Exception);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Post);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Post, version);
             var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 1, Subject = "Insert Test", UserName = "james", Description = "Insert Test Description" };
 
             //Act
@@ -247,13 +262,14 @@ namespace ResearchLinks.Tests.Controllers
         #endregion
 
         #region Put ResearchItem Tests
-        [Test]
-        public void Put_ResearchItem_Returns_Expected_Header_For_James()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Put_ResearchItem_Returns_Expected_Header_For_James(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Put);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Put, version);
             var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 1, Subject = "Update Test 1", UserName = "james", Description = "Insert Test Description" };
 
             //Act
@@ -264,13 +280,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual("http://localhost/api/projects/1/researchItems/1", response.Headers.Location.ToString());
         }
 
-        [Test]
-        public void Put_James_ResearchItem_Returns_Null_ResearchItem_For_John()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Put_James_ResearchItem_Returns_Null_ResearchItem_For_John(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Put);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Put, version);
             var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 3, Subject = "Update Test 1", UserName = "john", Description = "Insert Test Description" };
 
             //Act
@@ -282,13 +299,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual("Research item not found for user john.", (string)errorMessage.Message);
         }
 
-        [Test]
-        public void Put_ResearchItem_Database_Exception_Returns_Error()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Put_ResearchItem_Database_Exception_Returns_Error(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Exception);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Put);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Put, version);
             var inputResearchItem = new ResearchItem() { ResearchItemId = 1, ProjectId = 1, Subject = "Update Test 1", UserName = "james", Description = "Insert Test Description" };
 
             //Act
@@ -302,13 +320,14 @@ namespace ResearchLinks.Tests.Controllers
         #endregion
 
         #region Delete ResearchItem Tests
-        [Test]
-        public void Delete_ResearchItem_Returns_Expected_Header_For_James()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Delete_ResearchItem_Returns_Expected_Header_For_James(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Delete);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Delete, version);
 
             //Act
             var response = researchItemsController.Delete(1,1);
@@ -317,13 +336,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode, "Expecting No Content Status Code");
         }
 
-        [Test]
-        public void Delete_James_ResearchItem_Returns_Null_ResearchItem_For_John()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Delete_James_ResearchItem_Returns_Null_ResearchItem_For_John(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Normal);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Delete);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "john", HttpMethod.Delete, version);
 
             //Act
             var response = researchItemsController.Delete(3, 1);
@@ -334,13 +354,14 @@ namespace ResearchLinks.Tests.Controllers
             Assert.AreEqual("Research item not found for user john.", (string)errorMessage.Message);
         }
 
-        [Test]
-        public void Delete_Project_Database_Exception_Returns_Error()
+        [TestCase("V1")]
+        [TestCase("V2")]
+        public void Delete_Project_Database_Exception_Returns_Error(string version)
         {
             //Setup
             _projectRepository = _mockRepositories.GetProjectsRepository(ReturnType.Normal);
             _researchItemRepository = _mockRepositories.GetResearchItemsRepository(ReturnType.Exception);
-            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Delete);
+            var researchItemsController = SetupController(_researchItemRepository.Object, _projectRepository.Object, "james", HttpMethod.Delete, version);
 
             //Act
             var response = researchItemsController.Delete(1,1);
@@ -352,9 +373,16 @@ namespace ResearchLinks.Tests.Controllers
         }
         #endregion
 
-        private ProjectResearchItemsController SetupController(IResearchItemRepository mockResearchItemRepository, IProjectRepository mockProjectRepository, string userName, HttpMethod method)
+        private dynamic SetupController(IResearchItemRepository mockResearchItemRepository, IProjectRepository mockProjectRepository, string userName, HttpMethod method, string version)
         {
-            var projectResearchItemsController = new ProjectResearchItemsController(mockResearchItemRepository, mockProjectRepository);
+            dynamic projectResearchItemsController = null;
+
+            if (version == "V1") {
+                projectResearchItemsController = new ResearchLinks.Controllers.Version1.ProjectResearchItemsController(mockResearchItemRepository, mockProjectRepository);
+            } else if (version == "V2") {
+                projectResearchItemsController = new ResearchLinks.Controllers.Version2.ProjectResearchItemsController(mockResearchItemRepository, mockProjectRepository);
+            }
+            
             var user = new Mock<IPrincipal>();
             var identity = new Mock<IIdentity>();
             user.Setup(x => x.Identity).Returns(identity.Object);
