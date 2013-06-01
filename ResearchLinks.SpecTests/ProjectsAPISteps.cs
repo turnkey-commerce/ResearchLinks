@@ -65,7 +65,7 @@ namespace ResearchLinks.SpecTests
             Assert.AreEqual(_projectTestModel.Name, _projectSaved.Name);
             Assert.AreEqual(_projectTestModel.Description, _projectSaved.Description);
             Assert.AreEqual(_projectTestModel.UserName, _projectSaved.UserName);
-            if (version == 2) 
+            if (version > 1) 
             {
                 Assert.AreEqual(_projectTestModel.IsUrgent, _projectSaved.IsUrgent);
             }
